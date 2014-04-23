@@ -21,101 +21,7 @@
             <div class="jumbotron">
                 <h4>LTDL3 Search Builder Prototype</h4>
                 <form role="form">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button id="ltdl-filter-what" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    Everywhere <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Everywhere</a></li>
-                                    <li><a href="#">Title</a></li>
-                                    <li class="dropdown-submenu">
-                                        <a href="#">Person</a>
-                                        <ul class="dropdown-menu ltdl-filter-what-what">
-                                            <li><a href="#">Any</a></li>
-                                            <li><a href="#">Attending</a></li>
-                                            <li><a href="#">Author</a></li>
-                                            <li><a href="#">Copied</a></li>
-                                            <li><a href="#">Mentioned</a></li>
-                                            <li><a href="#">Recipient</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu">
-                                        <a href="#">Organization</a>
-                                        <ul class="dropdown-menu ltdl-filter-what-what">
-                                            <li><a href="#">Any</a></li>
-                                            <li><a href="#">Attending</a></li>
-                                            <li><a href="#">Author</a></li>
-                                            <li><a href="#">Copied</a></li>
-                                            <li><a href="#">Mentioned</a></li>
-                                            <li><a href="#">Recipient</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu">
-                                        <a href="#">Type</a>
-                                        <ul class="dropdown-menu ltdl-filter-what-phrase">
-                                            <li><a href="#">Letter</a></li>
-                                            <li><a href="#">Email</a></li>
-                                            <li><a href="#">Report</a></li>
-                                            <li><a href="#">Ad</a></li>
-                                            <li><a href="#">Video</a></li>
-                                            <li><a href="#">Memo</a></li>
-                                            <li><a href="#">Newsletter</a></li>
-                                            <li><a href="#">Journal</a></li>
-                                            <li><a href="#">Invoice</a></li>
-                                            <li><a href="#">Financial</a></li>
-                                            <li><a href="#">Agenda</a></li>
-                                            <li><a href="#">Form</a></li>
-                                            <li><a href="#">Article</a></li>
-                                            <li><a href="#">Audio</a></li>
-                                            <li><a href="#">Graphics</a></li>
-                                            <li><a href="#">Other</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu">
-                                        <a href="#">Brand Name</a>
-                                        <ul class="dropdown-menu ltdl-filter-what-phrase">
-                                            <li><a href="#">Camel</a></li>
-                                            <li><a href="#">Marlboro</a></li>
-                                            <li><a href="#">Virginia Slims</a></li>
-                                            <li><a href="#">Skoal</a></li>
-                                            <li><a href="#">Garcia Y Vega</a></li>
-                                            <li><a href="#">More</a></li>
-                                            <li><a href="#">Winston</a></li>
-                                            <li><a href="#">Other</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Bates Number</a></li>
-                                    <li><a href="#">ID Number</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-submenu">
-                                        <a href="#">More</a>
-                                        <ul class="dropdown-menu ltdl-filter-what-what">
-                                            <li><a href="#">Text</a></li>
-                                            <li><a href="#">Metadata</a></li>
-                                            <li><a href="#">Keyword</a></li>
-                                            <li><a href="#">Notes</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="input-group-btn">
-                                <button id="ltdl-filter-phrase" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    for any of the words <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">for any of the words</a></li>
-                                    <li><a href="#">for all of the words</a></li>
-                                    <li><a href="#">for the exact phrase</a></li>
-                                </ul>
-                            </div>
-                            <input id="ltdl-search-terms" class="form-control" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="ltdl-search-builder">
                     <div class="pull-right">
                         <button type="submit" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
                     </div>
@@ -153,6 +59,107 @@
                 $('#ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
             };
             $('#ltdl-filter-phrase ~ .dropdown-menu li a').on('click', filterPhraseCallback);
+
+            var addSearchBuilderComponent = function () {
+                var newSearchBuilderComponent = $('<div class="form-group">' +
+                    '<div class="input-group">' +
+                        '<div class="input-group-btn">' +
+                            '<button id="ltdl-filter-what" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
+                                'Everywhere <span class="caret"></span>' +
+                            '</button>' +
+                            '<ul class="dropdown-menu" role="menu">' +
+                                '<li><a href="#">Everywhere</a></li>' +
+                                '<li><a href="#">Title</a></li>' +
+                                '<li class="dropdown-submenu">' +
+                                    '<a href="#">Person</a>' +
+                                    '<ul class="dropdown-menu ltdl-filter-what-what">' +
+                                        '<li><a href="#">Any</a></li>' +
+                                        '<li><a href="#">Attending</a></li>' +
+                                        '<li><a href="#">Author</a></li>' +
+                                        '<li><a href="#">Copied</a></li>' +
+                                        '<li><a href="#">Mentioned</a></li>' +
+                                        '<li><a href="#">Recipient</a></li>' +
+                                    '</ul>' +
+                                '</li>' +
+                                '<li class="dropdown-submenu">' +
+                                    '<a href="#">Organization</a>' +
+                                    '<ul class="dropdown-menu ltdl-filter-what-what">' +
+                                        '<li><a href="#">Any</a></li>' +
+                                        '<li><a href="#">Attending</a></li>' +
+                                        '<li><a href="#">Author</a></li>' +
+                                        '<li><a href="#">Copied</a></li>' +
+                                        '<li><a href="#">Mentioned</a></li>' +
+                                        '<li><a href="#">Recipient</a></li>' +
+                                    '</ul>' +
+                                '</li>' +
+                                '<li class="dropdown-submenu">' +
+                                    '<a href="#">Type</a>' +
+                                    '<ul class="dropdown-menu ltdl-filter-what-phrase">' +
+                                        '<li><a href="#">Letter</a></li>' +
+                                        '<li><a href="#">Email</a></li>' +
+                                        '<li><a href="#">Report</a></li>' +
+                                        '<li><a href="#">Ad</a></li>' +
+                                        '<li><a href="#">Video</a></li>' +
+                                        '<li><a href="#">Memo</a></li>' +
+                                        '<li><a href="#">Newsletter</a></li>' +
+                                        '<li><a href="#">Journal</a></li>' +
+                                        '<li><a href="#">Invoice</a></li>' +
+                                        '<li><a href="#">Financial</a></li>' +
+                                        '<li><a href="#">Agenda</a></li>' +
+                                        '<li><a href="#">Form</a></li>' +
+                                        '<li><a href="#">Article</a></li>' +
+                                        '<li><a href="#">Audio</a></li>' +
+                                        '<li><a href="#">Graphics</a></li>' +
+                                        '<li><a href="#">Other</a></li>' +
+                                    '</ul>' +
+                                '</li>' +
+                                '<li class="dropdown-submenu">' +
+                                    '<a href="#">Brand Name</a>' +
+                                    '<ul class="dropdown-menu ltdl-filter-what-phrase">' +
+                                        '<li><a href="#">Camel</a></li>' +
+                                        '<li><a href="#">Marlboro</a></li>' +
+                                        '<li><a href="#">Virginia Slims</a></li>' +
+                                        '<li><a href="#">Skoal</a></li>' +
+                                        '<li><a href="#">Garcia Y Vega</a></li>' +
+                                        '<li><a href="#">More</a></li>' +
+                                        '<li><a href="#">Winston</a></li>' +
+                                        '<li><a href="#">Other</a></li>' +
+                                    '</ul>' +
+                                '</li>' +
+                                '<li><a href="#">Bates Number</a></li>' +
+                                '<li><a href="#">ID Number</a></li>' +
+                                '<li class="divider"></li>' +
+                                '<li class="dropdown-submenu">' +
+                                    '<a href="#">More</a>' +
+                                    '<ul class="dropdown-menu ltdl-filter-what-what">' +
+                                        '<li><a href="#">Text</a></li>' +
+                                        '<li><a href="#">Metadata</a></li>' +
+                                        '<li><a href="#">Keyword</a></li>' +
+                                        '<li><a href="#">Notes</a></li>' +
+                                    '</ul>' +
+                                '</li>' +
+                            '</ul>' +
+                        '</div>' +
+                        '<div class="input-group-btn">' +
+                            '<button id="ltdl-filter-phrase" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
+                                'for any of the words <span class="caret"></span>' +
+                            '</button>' +
+                            '<ul class="dropdown-menu" role="menu">' +
+                                '<li><a href="#">for any of the words</a></li>' +
+                                '<li><a href="#">for all of the words</a></li>' +
+                                '<li><a href="#">for the exact phrase</a></li>' +
+                            '</ul>' +
+                        '</div>' +
+                        '<input id="ltdl-search-terms" class="form-control" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">' +
+                        '<div class="input-group-btn">' +
+                            '<button type="button" class="btn btn-default ltdl-search-add"><span class="glyphicon glyphicon-plus"></span></button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>');
+                $(newSearchBuilderComponent).find('button.ltdl-search-add').on('click', addSearchBuilderComponent);
+                $('#ltdl-search-builder').prepend(newSearchBuilderComponent);
+            };
+            addSearchBuilderComponent();
         </script>
     </body>
 </html>
