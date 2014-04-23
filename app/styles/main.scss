@@ -51,3 +51,9 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+/* End Submenus */
+
+/* More than one button to the left of the search box */
+.input-group .form-control, .input-group-addon, .input-group-btn > .btn, .input-group-btn > .dropdown-toggle {
+    border-radius: 0;
+}
