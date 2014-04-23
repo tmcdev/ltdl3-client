@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
         <link rel="import" href="elements/greeting.html">
         <link rel="import" href="elements/ltdl3-search-builder.html">
     </head>
-    <body unresolved>
+    <body>
         <div class="container">
             <form role="form">
                 <div class="form-group">
@@ -33,7 +33,7 @@
                                 <li><a href="#">Title</a></li>
                                 <li class="dropdown-submenu">
                                     <a href="#">Person</a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu ltdl-filter-what-what">
                                         <li><a href="#">Any</a></li>
                                         <li><a href="#">Attending</a></li>
                                         <li><a href="#">Author</a></li>
@@ -44,7 +44,7 @@
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#">Organization</a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu ltdl-filter-what-what">
                                         <li><a href="#">Any</a></li>
                                         <li><a href="#">Attending</a></li>
                                         <li><a href="#">Author</a></li>
@@ -55,9 +55,37 @@
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#">Type</a>
+                                    <ul class="dropdown-menu ltdl-filter-what-phrase">
+                                        <li><a href="#">Letter</a></li>
+                                        <li><a href="#">Email</a></li>
+                                        <li><a href="#">Report</a></li>
+                                        <li><a href="#">Ad</a></li>
+                                        <li><a href="#">Video</a></li>
+                                        <li><a href="#">Memo</a></li>
+                                        <li><a href="#">Newsletter</a></li>
+                                        <li><a href="#">Journal</a></li>
+                                        <li><a href="#">Invoice</a></li>
+                                        <li><a href="#">Financial</a></li>
+                                        <li><a href="#">Agenda</a></li>
+                                        <li><a href="#">Form</a></li>
+                                        <li><a href="#">Article</a></li>
+                                        <li><a href="#">Audio</a></li>
+                                        <li><a href="#">Graphics</a></li>
+                                        <li><a href="#">Other</a></li>
+                                    </ul>
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#">Brand Name</a>
+                                    <ul class="dropdown-menu ltdl-filter-what-phrase">
+                                        <li><a href="#">Camel</a></li>
+                                        <li><a href="#">Marlboro</a></li>
+                                        <li><a href="#">Virginia Slims</a></li>
+                                        <li><a href="#">Skoal</a></li>
+                                        <li><a href="#">Garcia Y Vega</a></li>
+                                        <li><a href="#">More</a></li>
+                                        <li><a href="#">Winston</a></li>
+                                        <li><a href="#">Other</a></li>
+                                    </ul>
                                 </li>
                                 <li><a href="#">Bates Number</a></li>
                                 <li><a href="#">ID Number</a></li>
@@ -84,7 +112,7 @@
                             </ul>
                         </div>
                     </div>
-                    <input class="form-control" type="text" id="searchTerm0" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">
+                    <input id="ltdl-search-terms" class="form-control" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
@@ -95,12 +123,20 @@
             };
             $('#ltdl-filter-what ~ .dropdown-menu > li > a').on('click', filterWhatCallback);
 
-            var filterWhatSubmenuCallback = function () {
+            var filterWhatSubmenuWhatCallback = function () {
                 var context = $(this).parents('.dropdown-submenu')[0];
                 var parentLabel = $(context).children('a').text();
                 $('#ltdl-filter-what').html(parentLabel + ': ' + $(this).text() + ' <span class="caret"></span>');
-            }
-            $('#ltdl-filter-what ~ .dropdown-menu .dropdown-submenu .dropdown-menu > li > a').on('click', filterWhatSubmenuCallback);
+            };
+            $('#ltdl-filter-what ~ .dropdown-menu .dropdown-submenu .ltdl-filter-what-what > li > a').on('click', filterWhatSubmenuWhatCallback);
+
+            var filterWhatSubmenuPhraseCallback = function () {
+                var context = $(this).parents('.dropdown-submenu')[0];
+                var parentLabel = $(context).children('a').text();
+                $('#ltdl-filter-what').html(parentLabel + ' <span class="caret"></span>');
+                $('#ltdl-search-terms').val($(this).text());
+            };
+            $('#ltdl-filter-what ~ .dropdown-menu .dropdown-submenu .ltdl-filter-what-phrase > li > a').on('click', filterWhatSubmenuPhraseCallback);
 
             var filterPhraseCallback = function () {
                 $('#ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
