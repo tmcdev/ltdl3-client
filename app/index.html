@@ -30,11 +30,28 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Everywhere</a></li>
+                                <li><a href="#">Title</a></li>
                                 <li class="dropdown-submenu">
-                                    <a href="#">Title</a>
+                                    <a href="#">Person</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Any</a></li>
+                                        <li><a href="#">Attending</a></li>
+                                        <li><a href="#">Author</a></li>
+                                        <li><a href="#">Copied</a></li>
+                                        <li><a href="#">Mentioned</a></li>
+                                        <li><a href="#">Recipient</a></li>
+                                    </ul>
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#">Organization</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Any</a></li>
+                                        <li><a href="#">Attending</a></li>
+                                        <li><a href="#">Author</a></li>
+                                        <li><a href="#">Copied</a></li>
+                                        <li><a href="#">Mentioned</a></li>
+                                        <li><a href="#">Recipient</a></li>
+                                    </ul>
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#">Type</a>
@@ -73,10 +90,17 @@
             </form>
         </div>
         <script>
-            var filterWhatCallback = function() {
+            var filterWhatCallback = function () {
                 $('#ltdl-filter-what').html($(this).text() + ' <span class="caret"></span>');
             };
-            $('#ltdl-filter-what ~ .dropdown-menu li a').on('click', filterWhatCallback);
+            $('#ltdl-filter-what ~ .dropdown-menu > li > a').on('click', filterWhatCallback);
+
+            var filterWhatSubmenuCallback = function () {
+                var context = $(this).parents('.dropdown-submenu')[0];
+                var parentLabel = $(context).children('a').text();
+                $('#ltdl-filter-what').html(parentLabel + ': ' + $(this).text() + ' <span class="caret"></span>');
+            }
+            $('#ltdl-filter-what ~ .dropdown-menu .dropdown-submenu .dropdown-menu > li > a').on('click', filterWhatSubmenuCallback);
 
             var filterPhraseCallback = function () {
                 $('#ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
