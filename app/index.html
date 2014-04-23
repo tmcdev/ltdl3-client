@@ -33,10 +33,24 @@
 
             <form role="form">
                 <div class="form-group">
-                    <label for="searchTerm0">Search</label>
-                    <input type="text" class="form-control" id="searchTerm0" placeholder="Enter some search terms, yo!">
+                    <select>
+                        <option>Everywhere</option>
+                        <option>Title</option>
+                        <option>Organization</option>
+                        <option>Type</option>
+                        <option>Brand Name</option>
+                        <option>Bates Number</option>
+                        <option>ID Number</option>
+                        <option>More</option>
+                    </select>
+                    <select>
+                        <option>for any of the words</option>
+                        <option>for all of the words</option>
+                        <option>for the exact phrase</option>
+                    </select>
+                    <input class="form-control" type="text" id="searchTerm0" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Search</button>
             </form>
 <!--
             <div class="jumbotron">
