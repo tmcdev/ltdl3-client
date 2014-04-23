@@ -20,13 +20,11 @@
         <link rel="import" href="elements/ltdl3-search-builder.html">
     </head>
     <body unresolved>
-
-
         <div class="container">
             <form role="form">
                 <div class="form-group">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <button id="ltdl-filter-what" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             Everywhere <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
@@ -41,7 +39,7 @@
                         </ul>
                     </div>
                     <div class="btn-group">
-                        <button type = "button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <button id="ltdl-filter-phrase" type = "button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             for any of the words <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
@@ -55,5 +53,16 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
         </div>
+        <script>
+            var filterWhatCallback = function() {
+                $('#ltdl-filter-what').html($(this).text() + ' <span class="caret"></span>');
+            };
+            $('#ltdl-filter-what ~ .dropdown-menu li a').on('click', filterWhatCallback);
+
+            var filterPhraseCallback = function () {
+                $('#ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
+            };
+            $('#ltdl-filter-phrase ~ .dropdown-menu li a').on('click', filterPhraseCallback);
+        </script>
     </body>
 </html>
