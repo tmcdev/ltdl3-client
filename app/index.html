@@ -159,7 +159,8 @@
                 $(newSearchBuilderComponent).find('button.ltdl-search-add').on('click', addSearchBuilderComponent);
                 $('#ltdl-search-builder').prepend(newSearchBuilderComponent);
             };
-            addSearchBuilderComponent();
+
+            $('document').ready(addSearchBuilderComponent());
         </script>
     </body>
 </html>
