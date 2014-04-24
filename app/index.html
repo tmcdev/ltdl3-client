@@ -63,7 +63,12 @@
 
             // TODO: Big long DOM string, no no no.
             // TODO: classes sometimes prepended with ltdl- but not always. Make it always.
-            var addSearchBuilderComponent = function () {
+            var addSearchBuilderComponent = function (event) {
+                if (event.type === "click") {
+                    $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').html(
+                        '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>'
+                    );
+                }
                 var newSearchBuilderComponent = $('<div class="form-group ltdl-search-builder-component">' +
                     '<div class="input-group">' +
                         '<div class="input-group-btn">' +
@@ -134,7 +139,7 @@
                             '</ul>' +
                         '</div>' +
                         '<input class="form-control ltdl-search-box" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">' +
-                        '<div class="input-group-btn">' +
+                        '<div class="input-group-btn ltdl-search-plus">' +
                             '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span></button>' +
                             '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
                                 '<li><a class="ltdl-search-add" href="#">AND</a></li>' +
