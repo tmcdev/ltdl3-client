@@ -37,11 +37,11 @@
         <script>
             // TODO: Inline script. No no no no no. (Well, yes yes yes after a build process perhaps.)
             var filterWhatCallback = function () {
-                // TODO:Yeah, we need to improve the way we navigate to the desired element here...
-                $(this).parent().parent().parent().parent().find('button.ltdl-filter-what').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html($(this).text() + ' <span class="caret"></span>');
             };
 
             var filterWhatToSearchBoxCallback = function () {
+                // TODO:Yeah, we need to improve the way we navigate to the desired element here...
                 $(this).parent().parent().parent().parent().parent().parent().find('.ltdl-search-box').val($(this).text()).focus();
                 $(this).parent().parent().parent().parent().parent().find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text() + ' <span class="caret"></span>');
             }
@@ -53,7 +53,7 @@
             // TODO: Big long DOM string, no no no.
             // TODO: classes sometimes prepended with ltdl- but not always. Make it always.
             var addSearchBuilderComponent = function () {
-                var newSearchBuilderComponent = $('<div class="form-group">' +
+                var newSearchBuilderComponent = $('<div class="form-group ltdl-search-builder-component">' +
                     '<div class="input-group">' +
                         '<div class="input-group-btn">' +
                             '<button type="button" class="btn btn-default dropdown-toggle ltdl-filter-what" data-toggle="dropdown">' +
@@ -103,7 +103,7 @@
                                 '<li class="divider"></li>' +
                                 '<li class="dropdown-submenu">' +
                                     '<a href="#">More</a>' +
-                                    '<ul class="dropdown-menu ltdl-filter-what-nosubmenu">' +
+                                    '<ul class="dropdown-menu">' +
                                         '<li><a class="show-in-button" href="#">Text</a></li>' +
                                         '<li><a class="show-in-button" href="#">Metadata</a></li>' +
                                         '<li><a class="show-in-button" href="#">Keyword</a></li>' +
@@ -129,7 +129,7 @@
                     '</div>' +
                 '</div>');
 
-                $(newSearchBuilderComponent).find('.ltdl-filter-what ~ ul .show-in-button').on('click', filterWhatCallback);
+                $(newSearchBuilderComponent).find('.show-in-button').on('click', filterWhatCallback);
                 $(newSearchBuilderComponent).find('.ltdl-filter-what ~ ul .show-in-search-box').on('click', filterWhatToSearchBoxCallback);
                 $(newSearchBuilderComponent).find('.ltdl-filter-phrase ~ ul > li > a').on('click', filterPhraseCallback);
 
@@ -140,7 +140,7 @@
 
             $('document').ready(addSearchBuilderComponent());
 
-            // TODO: more, other, +/-, AND/OR/NOT
+            // TODO: other, +/-, AND/OR/NOT
         </script>
     </body>
 </html>
