@@ -201,9 +201,7 @@ module.exports = function (grunt) {
                         'elements/**',
                         'lib-elements/**',
                         'images/{,*/}*.{webp,gif}',
-                        'bower_components/jquery/dist/jquery.min.js',
-                        'bower_components/bootstrap/dist/js/bootstrap.min.js',
-                        'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*'
+                        'bower_components/**'
                     ]
                 }]
             }
