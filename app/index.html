@@ -18,29 +18,15 @@
     <body>
         <div id="content">
         </div>
-            <div class="container">
-                <div class="jumbotron">
-                    <h4>LTDL3 Search Builder Prototype</h4>
-                    <form role="form">
-                        <div id="ltdl-search-builder"></div>
-                        <div class="pull-right">
-                            <button type="submit" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
             <div id="footer">
                 <div class="container text-muted text-center small">
                     <p>&copy; 2014 Regents of the University of California</p>
                     <p><a href="http://glyphicons.com/">Glyphicons</a> are used on this page.</p>
                 </div>
             </div>
-        <script type="text/jsx">
-            /**
-             * @jsx React.DOM
-             */
-
-        </script>
+        <script src="scripts/githubRibbon.js"></script>
+        <script src="scripts/searchBuilder.js"></script>
+        <script src="scripts/app.js"></script>
         <script>
             // TODO: Inline script. No no no no no. (Well, yes yes yes after a build process perhaps.)
             var focusSearchBox = function () {
@@ -182,7 +168,5 @@
 
             $('document').ready(addSearchBuilderComponent);
         </script>
-        <script src="scripts/githubRibbon.js"></script>
-        <script src="scripts/app.js"></script>
     </body>
 </html>

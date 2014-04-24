@@ -9,10 +9,15 @@ var app = app || {};
 /* TODO: Browserify  */
 
     var GithubRibbon = app.GithubRibbon;
+    var SearchBuilder = app.SearchBuilder;
     var LtdlApp = React.createClass({
         render: function () {
             return (
-                <GithubRibbon/>
+                <div className="container">
+                    <GithubRibbon/>
+                    <h4>LTDL3 Search Builder Prototype</h4>
+                    <SearchBuilder/>
+                </div>
             );
         }
     });
