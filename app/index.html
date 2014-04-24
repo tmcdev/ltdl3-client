@@ -45,9 +45,8 @@
             };
 
             var filterWhatToSearchBoxCallback = function () {
-                // TODO:Yeah, we need to improve the way we navigate to the desired element here...
-                $(this).parent().parent().parent().parent().parent().parent().find('.ltdl-search-box').val($(this).text()).focus();
-                $(this).parent().parent().parent().parent().parent().find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text() + ' <span class="caret"></span>');
+                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-box').val($(this).text()).focus();
+                $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text() + ' <span class="caret"></span>');
             }
 
             var filterPhraseCallback = function () {
