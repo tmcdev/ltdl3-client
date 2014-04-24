@@ -64,11 +64,6 @@
             // TODO: Big long DOM string, no no no.
             // TODO: classes sometimes prepended with ltdl- but not always. Make it always.
             var addSearchBuilderComponent = function (event) {
-                if (event.type === "click") {
-                    $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').html(
-                        '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>'
-                    );
-                }
                 var newSearchBuilderComponent = $('<div class="form-group ltdl-search-builder-component">' +
                     '<div class="input-group">' +
                         '<div class="input-group-btn">' +
@@ -154,10 +149,17 @@
                 $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
                 $(newSearchBuilderComponent).find('.show-in-phrase-button').on('click', filterPhraseCallback);
 
-                $(newSearchBuilderComponent).find('.ltdl-search-add').on('click', addSearchBuilderComponent);
+                $(newSearchBuilderComponent).find('.ltdl-search-add').one('click', addSearchBuilderComponent);
 
                 $('#ltdl-search-builder').append(newSearchBuilderComponent);
                 $('#ltdl-search-builder input').focus();
+                if (event.type === "click") {
+                    var minus = $('<div class="input-group-btn ltdl-search-minus"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button></div>');
+                    $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').replaceWith(minus);
+                    minus.one('click', function () {
+                        $(this).parents('.ltdl-search-builder-component').remove();
+                    });
+                }
             };
 
             $('document').ready(addSearchBuilderComponent);
