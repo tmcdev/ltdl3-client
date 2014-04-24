@@ -51,7 +51,7 @@
             }
 
             var filterPhraseCallback = function () {
-                $(this).parent().parent().parent().find('.ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parents('.ltdl-search-builder-component').find('.ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
             };
 
             // TODO: Big long DOM string, no no no.
@@ -121,9 +121,9 @@
                                 'for any of the words <span class="caret"></span>' +
                             '</button>' +
                             '<ul class="dropdown-menu" role="menu">' +
-                                '<li><a href="#">for any of the words</a></li>' +
-                                '<li><a href="#">for all of the words</a></li>' +
-                                '<li><a href="#">for the exact phrase</a></li>' +
+                                '<li><a class="show-in-phrase-button" href="#">for any of the words</a></li>' +
+                                '<li><a class="show-in-phrase-button" href="#">for all of the words</a></li>' +
+                                '<li><a class="show-in-phrase-button" href="#">for the exact phrase</a></li>' +
                             '</ul>' +
                         '</div>' +
                         '<input class="form-control ltdl-search-box" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">' +
@@ -135,7 +135,7 @@
 
                 $(newSearchBuilderComponent).find('.show-in-button').on('click', filterWhatCallback);
                 $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
-                $(newSearchBuilderComponent).find('.ltdl-filter-phrase ~ ul > li > a').on('click', filterPhraseCallback);
+                $(newSearchBuilderComponent).find('.show-in-phrase-button').on('click', filterPhraseCallback);
 
                 $(newSearchBuilderComponent).find('button.ltdl-search-add').on('click', addSearchBuilderComponent);
 
