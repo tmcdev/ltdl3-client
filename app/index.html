@@ -36,21 +36,29 @@
         </div>
         <script>
             // TODO: Inline script. No no no no no. (Well, yes yes yes after a build process perhaps.)
+            var focusSearchBox = function () {
+                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-box').focus();
+            }
+
             var filterWhatCallback = function () {
                 var text = $(this).attr('data-ltdl-text');
                 if (typeof text !== "string") {
                     text = $(this).text();
                 }
                 $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html(text + ' <span class="caret"></span>');
+                focusSearchBox.apply(this);
             };
 
             var filterWhatToSearchBoxCallback = function () {
-                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-box').val($(this).text()).focus();
+                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-box').val($(this).text());
+                // TODO: parent().parent().parent()? We can do better than that.
                 $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text() + ' <span class="caret"></span>');
+                focusSearchBox.apply(this);
             }
 
             var filterPhraseCallback = function () {
                 $(this).parents('.ltdl-search-builder-component').find('.ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
+                focusSearchBox.apply(this);
             };
 
             // TODO: Big long DOM string, no no no.
@@ -139,11 +147,12 @@
                 $(newSearchBuilderComponent).find('button.ltdl-search-add').on('click', addSearchBuilderComponent);
 
                 $('#ltdl-search-builder').append(newSearchBuilderComponent);
+                $('#ltdl-search-builder input').focus();
             };
 
-            $('document').ready(addSearchBuilderComponent());
+            $('document').ready(addSearchBuilderComponent);
 
-            // TODO: focus, +/-, AND/OR/NOT
+            // TODO: +/-, AND/OR/NOT
         </script>
     </body>
 </html>
