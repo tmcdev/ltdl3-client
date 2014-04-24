@@ -205,11 +205,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        bower: {
-            all: {
-                rjsConfig: '<%= yeoman.app %>/scripts/main.js'
-            }
-        }
     });
 
     grunt.registerTask('server', function (target) {

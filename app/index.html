@@ -43,11 +43,11 @@
 
             var filterWhatToSearchBoxCallback = function () {
                 $(this).parent().parent().parent().parent().parent().parent().find('.ltdl-search-box').val($(this).text()).focus();
-                $(this).parent().parent().parent().parent().parent().find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text());
+                $(this).parent().parent().parent().parent().parent().find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text() + ' <span class="caret"></span>');
             }
 
             var filterPhraseCallback = function () {
-                $('.ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parent().parent().parent().find('.ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
             };
 
             // TODO: Big long DOM string, no no no.
