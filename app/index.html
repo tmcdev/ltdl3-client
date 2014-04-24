@@ -95,7 +95,7 @@
                                         '<li><a class="show-in-search-box" href="#">Garcia Y Vega</a></li>' +
                                         '<li><a class="show-in-search-box" href="#">More</a></li>' +
                                         '<li><a class="show-in-search-box" href="#">Winston</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Other</a></li>' +
+                                        '<li><a href="#">Other</a></li>' +
                                     '</ul>' +
                                 '</li>' +
                                 '<li><a class="show-in-button" href="#">Bates Number</a></li>' +
@@ -130,7 +130,7 @@
                 '</div>');
 
                 $(newSearchBuilderComponent).find('.show-in-button').on('click', filterWhatCallback);
-                $(newSearchBuilderComponent).find('.ltdl-filter-what ~ ul .show-in-search-box').on('click', filterWhatToSearchBoxCallback);
+                $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
                 $(newSearchBuilderComponent).find('.ltdl-filter-phrase ~ ul > li > a').on('click', filterPhraseCallback);
 
                 $(newSearchBuilderComponent).find('button.ltdl-search-add').on('click', addSearchBuilderComponent);
