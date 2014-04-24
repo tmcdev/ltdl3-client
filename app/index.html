@@ -37,7 +37,11 @@
         <script>
             // TODO: Inline script. No no no no no. (Well, yes yes yes after a build process perhaps.)
             var filterWhatCallback = function () {
-                $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html($(this).text() + ' <span class="caret"></span>');
+                var text = $(this).attr('data-ltdl-text');
+                if (typeof text !== "string") {
+                    text = $(this).text();
+                }
+                $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html(text + ' <span class="caret"></span>');
             };
 
             var filterWhatToSearchBoxCallback = function () {
@@ -82,7 +86,7 @@
                                         '<li><a class="show-in-search-box" href="#">Article</a></li>' +
                                         '<li><a class="show-in-search-box" href="#">Audio</a></li>' +
                                         '<li><a class="show-in-search-box" href="#">Graphics</a></li>' +
-                                        '<li><a href="#">Other</a></li>' +
+                                        '<li><a class="show-in-button" data-ltdl-text="Type" href="#">Other</a></li>' +
                                     '</ul>' +
                                 '</li>' +
                                 '<li class="dropdown-submenu">' +
@@ -95,7 +99,7 @@
                                         '<li><a class="show-in-search-box" href="#">Garcia Y Vega</a></li>' +
                                         '<li><a class="show-in-search-box" href="#">More</a></li>' +
                                         '<li><a class="show-in-search-box" href="#">Winston</a></li>' +
-                                        '<li><a href="#">Other</a></li>' +
+                                        '<li><a class="show-in-button" data-ltdl-text="Brand Name" href="#">Other</a></li>' +
                                     '</ul>' +
                                 '</li>' +
                                 '<li><a class="show-in-button" href="#">Bates Number</a></li>' +
@@ -140,7 +144,7 @@
 
             $('document').ready(addSearchBuilderComponent());
 
-            // TODO: other, +/-, AND/OR/NOT
+            // TODO: focus, +/-, AND/OR/NOT
         </script>
     </body>
 </html>
