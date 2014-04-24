@@ -10,6 +10,8 @@ var app = app || {};
 
     var GithubRibbon = app.GithubRibbon;
     var SearchBuilder = app.SearchBuilder;
+    var Footer = app.Footer;
+
     var LtdlApp = React.createClass({
         render: function () {
             return (
@@ -17,6 +19,7 @@ var app = app || {};
                     <GithubRibbon/>
                     <h4>LTDL3 Search Builder Prototype</h4>
                     <SearchBuilder/>
+                    <Footer/>
                 </div>
             );
         }
