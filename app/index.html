@@ -154,17 +154,15 @@
                 $('#ltdl-search-builder').append(newSearchBuilderComponent);
                 $('#ltdl-search-builder input').focus();
                 if (event.type === "click") {
-                    var minus = $('<div class="input-group-btn ltdl-search-minus"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button></div>');
+                    var minus = $('<div class="input-group-btn"><button type="button" disabled="disabled" class="btn btn-default">' + $(this).text() + '</button><button type="button" class="btn btn-default ltdl-search-minus"><span class="glyphicon glyphicon-minus"></span></button></div>');
                     $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').replaceWith(minus);
-                    minus.one('click', function () {
+                    minus.find('.ltdl-search-minus').one('click', function () {
                         $(this).parents('.ltdl-search-builder-component').remove();
                     });
                 }
             };
 
             $('document').ready(addSearchBuilderComponent);
-
-            // TODO: AND/OR/NOT
         </script>
     </body>
 </html>
