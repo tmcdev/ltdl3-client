@@ -36,13 +36,17 @@ module.exports = function (grunt) {
                 tasks: ['compass']
             },
 
+            react: {
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.jsx'],
+                tasks: ['react']
+            },
+
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
                     '<%= yeoman.app %>/*.html',
-                    '<%= yeoman.app %>/elements/**/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
@@ -206,6 +210,27 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        /* TODO: DRY this out */
+        react: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'app/scripts',
+                    src: ['**/*.jsx'],
+                    dest: 'dist/scripts',
+                    ext: '.js'
+                }]
+            },
+            server: {
+                files: [{
+                    expand: true,
+                    cwd: 'app/scripts',
+                    src: ['**/*.jsx'],
+                    dest: '.tmp/scripts',
+                    ext: '.js'
+                }]
+            }
+        },
     });
 
     grunt.registerTask('server', function (target) {
@@ -221,6 +246,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'compass:server',
+            'react:server',
             'connect:livereload',
             'copy',
             'open',
@@ -247,6 +273,7 @@ module.exports = function (grunt) {
         // 'concat',
         'cssmin',
         // 'uglify',
+        'react:dist',
         'copy',
         'usemin'
     ]);
