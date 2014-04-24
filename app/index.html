@@ -152,12 +152,23 @@
 
                 $('#ltdl-search-builder').append(newSearchBuilderComponent);
                 $('#ltdl-search-builder input').focus();
+
+                var booleanCallback = function () {
+                    $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-builder-boolean').html($(this).text() + ' <span class="caret"></span>');
+                };
+
                 if (event.type === "click") {
-                    var minus = $('<div class="input-group-btn"><button type="button" disabled="disabled" class="btn btn-default">' + $(this).text() + '</button><button type="button" class="btn btn-default ltdl-search-minus"><span class="glyphicon glyphicon-minus"></span></button></div>');
+                    var minus = $('<div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle ltdl-search-builder-boolean" data-toggle="dropdown">' + $(this).text() + ' <span class="caret"></span></button>' +
+                        '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                        '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">AND</a></li>' +
+                        '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">OR</a></li>' +
+                        '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">NOT</a></li>' +
+                        '</ul><button type="button" class="btn btn-default ltdl-search-minus"><span class="glyphicon glyphicon-minus"></span></button></div>');
                     $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').replaceWith(minus);
                     minus.find('.ltdl-search-minus').one('click', function () {
                         $(this).parents('.ltdl-search-builder-component').remove();
                     });
+                    minus.find('.ltdl-search-builder-boolean-dropdown').on('click', booleanCallback);
                 }
             };
 
