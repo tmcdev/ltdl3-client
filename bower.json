@@ -2,9 +2,9 @@
   "name": "ltdl3-client",
   "version": "0.0.0",
   "dependencies": {
-    "sass-bootstrap": "~3.0.0",
     "jquery": "~2.1.0",
-    "bootstrap": "~3.1.1"
+    "bootstrap": "~3.1.1",
+    "bootstrap-sass-official": "~3.1.1+2"
   },
   "devDependencies": {}
 }

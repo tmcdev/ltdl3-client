@@ -135,7 +135,12 @@
                         '</div>' +
                         '<input class="form-control ltdl-search-box" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">' +
                         '<div class="input-group-btn">' +
-                            '<button type="button" class="btn btn-default ltdl-search-add"><span class="glyphicon glyphicon-plus"></span></button>' +
+                            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span></button>' +
+                            '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                                '<li><a class="ltdl-search-add" href="#">AND</a></li>' +
+                                '<li><a class="ltdl-search-add" href="#">OR</a></li>' +
+                                '<li><a class="ltdl-search-add" href="#">NOT</a></li>' +
+                            '</ul>' +
                         '</div>' +
                     '</div>' +
                 '</div>');
@@ -144,7 +149,7 @@
                 $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
                 $(newSearchBuilderComponent).find('.show-in-phrase-button').on('click', filterPhraseCallback);
 
-                $(newSearchBuilderComponent).find('button.ltdl-search-add').on('click', addSearchBuilderComponent);
+                $(newSearchBuilderComponent).find('.ltdl-search-add').on('click', addSearchBuilderComponent);
 
                 $('#ltdl-search-builder').append(newSearchBuilderComponent);
                 $('#ltdl-search-builder input').focus();
