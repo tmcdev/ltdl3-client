@@ -30,8 +30,7 @@
         <script src="scripts/app.js"></script>
         <script>
             var addSearchBuilderComponent = function (event) {
-                $('#ltdl-search-builder').append(newSearchBuilderComponent);
-                $('#ltdl-search-builder input').focus();
+                            $('#ltdl-search-builder input').focus();
 
                 var booleanCallback = function () {
                     $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-builder-boolean').html($(this).text() + ' <span class="caret"></span>');

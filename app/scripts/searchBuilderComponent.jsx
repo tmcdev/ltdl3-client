@@ -18,6 +18,9 @@ var app = app || {};
         setTextBox: function (value) {
             this.refs.textBox.value(value);
         },
+        componentDidMount: function () {
+            this.focusTextBox();
+        },
         render: function() {
             return (
                 <div className="form-group">
