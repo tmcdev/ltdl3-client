@@ -28,20 +28,5 @@
         <script src="scripts/searchBuilder.js"></script>
         <script src="scripts/footer.js"></script>
         <script src="scripts/app.js"></script>
-        <script>
-            var addSearchBuilderComponent = function (event) {
-                            $('#ltdl-search-builder input').focus();
-
-                var booleanCallback = function () {
-                    $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-builder-boolean').html($(this).text() + ' <span class="caret"></span>');
-                };
-
-                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').replaceWith(minus);
-                minus.find('.ltdl-search-minus').one('click', function () {
-                    $(this).parents('.ltdl-search-builder-component').remove();
-                });
-                minus.find('.ltdl-search-builder-boolean-dropdown').on('click', booleanCallback);
-            };
-        </script>
     </body>
 </html>
