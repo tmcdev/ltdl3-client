@@ -8,7 +8,26 @@ var app = app || {};
 
     var searchBuilderPhraseFilter = app.searchBuilderPhraseFilter;
 
+// TODO: Move this into its own file
+    app.searchBuilderTextBox = React.createClass({
+        focus: function () {
+            this.refs.textInputElement.getDOMNode().focus();
+        },
+        render: function () {
+            return (
+                <input ref="textInputElement" className="form-control" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n"></input>
+            )
+        }
+    });
+
+// End move to own file
+    var searchBuilderTextBox = app.searchBuilderTextBox;
+
+
     app.SearchBuilderComponent = React.createClass({
+        focusTextBox: function () {
+            this.refs.textBox.focus();
+        },
         render: function() {
             return (
                 <div className="form-group ltdl-search-builder-component">
@@ -70,8 +89,8 @@ var app = app || {};
                                 </li>
                             </ul>
                         </div>
-                        <searchBuilderPhraseFilter/>
-                        <input className="form-control ltdl-search-box" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n"></input>
+                        <searchBuilderPhraseFilter focusTextBox={this.focusTextBox}/>
+                        <searchBuilderTextBox ref="textBox"/>
                         <div className="input-group-btn ltdl-search-plus">
                             <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"><span className="glyphicon glyphicon-plus"></span></button>
                             <ul className="dropdown-menu dropdown-menu-right" role="menu">

@@ -12,7 +12,7 @@ var app = app || {};
         },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
-            $(event.target).parents('.ltdl-search-builder-component').find('.ltdl-search-box').focus();
+            this.props.focusTextBox();
         },
         render: function() {
             return (
