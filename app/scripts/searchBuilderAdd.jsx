@@ -3,18 +3,21 @@
  */
 var app = app || {};
 
+// TODO: magic value plusOrMinus = "plus" or "minus" should be booleanized or enumed
+
 (function () {
     'use strict';
 
     app.searchBuilderAdd = React.createClass({
         getInitialState: function () {
             return {
-                plusOrMinus: "plus"
+                plusOrMinus: "plus",
+                boolean: ""
             }
         },
         add: function (event) {
             if (this.state.plusOrMinus === "plus") {
-                console.dir(event.target.getAttribute('data-boolean'));
+                this.state.boolean = event.target.getAttribute('data-boolean');
                 this.setState({plusOrMinus: "minus"});
                 this.props.add(this.props.index);
             }
@@ -25,8 +28,13 @@ var app = app || {};
             }
         },
         render: function () {
+            var revisePulldownStyle = {display: "inherit"};
+            if (this.state.plusOrMinus === "plus") {
+                revisePulldownStyle = {display: "none"}
+            }
             return (
                 <div className="input-group-btn">
+                    <button style={revisePulldownStyle} type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">{this.state.boolean} <span className="caret"></span></button>
                     <button type="button" onClick={this.remove} className="btn btn-default dropdown-toggle" data-toggle="dropdown"><span className={"glyphicon glyphicon-" + this.state.plusOrMinus}></span></button>
                     <ul className="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a data-boolean="AND" onClick={this.add} href="#">AND</a></li>

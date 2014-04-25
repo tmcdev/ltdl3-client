@@ -8,12 +8,6 @@ var app = app || {};
 
     app.Footer = React.createClass({
         render: function() {
-            var style = {
-                position: 'absolute',
-                top: '0',
-                right: '0',
-                border: '0',
-            };
             return (
                 <div id="footer">
                     <div className="container text-muted text-center small">

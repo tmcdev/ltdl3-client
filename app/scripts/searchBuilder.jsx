@@ -11,21 +11,21 @@ var app = app || {};
     app.SearchBuilder = React.createClass({
         add: function (index) {
             var components = this.state.components;
-            components.push(<SearchBuilderComponent index={index+1} add={this.add} remove={this.remove}/>);
+            components.push(<SearchBuilderComponent key={"comp"+(index+1)} index={index+1} add={this.add} remove={this.remove}/>);
             this.setState({
                 components: components
             });
         },
         remove: function (index) {
             var components = this.state.components;
-            delete components[index];
+            components.splice(index,1);
             this.setState({
                 components: components
             });
         },
         getInitialState: function () {
             return {
-                components: [<SearchBuilderComponent index={0} add={this.add} remove={this.remove}/>]
+                components: [<SearchBuilderComponent key="comp0" index={0} add={this.add} remove={this.remove}/>]
             }
         },
         render: function() {
