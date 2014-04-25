@@ -7,22 +7,7 @@ var app = app || {};
     'use strict';
 
     var searchBuilderPhraseFilter = app.searchBuilderPhraseFilter;
-
-// TODO: Move this into its own file
-    app.searchBuilderTextBox = React.createClass({
-        focus: function () {
-            this.refs.textInputElement.getDOMNode().focus();
-        },
-        render: function () {
-            return (
-                <input ref="textInputElement" className="form-control" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n"></input>
-            )
-        }
-    });
-
-// End move to own file
     var searchBuilderTextBox = app.searchBuilderTextBox;
-
 
     app.SearchBuilderComponent = React.createClass({
         focusTextBox: function () {
