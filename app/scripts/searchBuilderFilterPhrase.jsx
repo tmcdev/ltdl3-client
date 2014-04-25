@@ -6,7 +6,7 @@ var app = app || {};
 (function () {
     'use strict';
 
-    app.searchBuilderPhraseFilter = React.createClass({
+    app.searchBuilderFilterPhrase = React.createClass({
         getInitialState: function () {
             return {filterPhrase: "for any of the words"};
         },

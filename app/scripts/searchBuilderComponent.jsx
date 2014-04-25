@@ -6,7 +6,7 @@ var app = app || {};
 (function () {
     'use strict';
 
-    var searchBuilderPhraseFilter = app.searchBuilderPhraseFilter;
+    var searchBuilderFilterPhrase = app.searchBuilderFilterPhrase;
     var searchBuilderTextBox = app.searchBuilderTextBox;
 
     app.SearchBuilderComponent = React.createClass({
@@ -74,7 +74,7 @@ var app = app || {};
                                 </li>
                             </ul>
                         </div>
-                        <searchBuilderPhraseFilter focusTextBox={this.focusTextBox}/>
+                        <searchBuilderFilterPhrase focusTextBox={this.focusTextBox}/>
                         <searchBuilderTextBox ref="textBox"/>
                         <div className="input-group-btn ltdl-search-plus">
                             <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"><span className="glyphicon glyphicon-plus"></span></button>
