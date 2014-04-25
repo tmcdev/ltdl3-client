@@ -25,7 +25,7 @@ var app = app || {};
                         <searchBuilderFilterType focusTextBox={this.focusTextBox} setTextBox={this.setTextBox}/>
                         <searchBuilderFilterPhrase focusTextBox={this.focusTextBox}/>
                         <searchBuilderTextBox ref="textBox"/>
-                        <searchBuilderAdd/>
+                        <searchBuilderAdd add={this.props.add}/>
                     </div>
                 </div>
             );
