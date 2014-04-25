@@ -9,6 +9,7 @@ var app = app || {};
     var searchBuilderFilterType = app.searchBuilderFilterType;
     var searchBuilderFilterPhrase = app.searchBuilderFilterPhrase;
     var searchBuilderTextBox = app.searchBuilderTextBox;
+    var searchBuilderAdd = app.searchBuilderAdd;
 
     app.SearchBuilderComponent = React.createClass({
         focusTextBox: function () {
@@ -19,19 +20,12 @@ var app = app || {};
         },
         render: function() {
             return (
-                <div className="form-group ltdl-search-builder-component">
+                <div className="form-group">
                     <div className="input-group">
                         <searchBuilderFilterType focusTextBox={this.focusTextBox} setTextBox={this.setTextBox}/>
                         <searchBuilderFilterPhrase focusTextBox={this.focusTextBox}/>
                         <searchBuilderTextBox ref="textBox"/>
-                        <div className="input-group-btn ltdl-search-plus">
-                            <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"><span className="glyphicon glyphicon-plus"></span></button>
-                            <ul className="dropdown-menu dropdown-menu-right" role="menu">
-                                <li><a className="ltdl-search-add" href="#">AND</a></li>
-                                <li><a className="ltdl-search-add" href="#">OR</a></li>
-                                <li><a className="ltdl-search-add" href="#">NOT</a></li>
-                            </ul>
-                        </div>
+                        <searchBuilderAdd/>
                     </div>
                 </div>
             );

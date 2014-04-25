@@ -6,6 +6,7 @@ var app = app || {};
 (function () {
     'use strict';
 
+/* TODO: Subcomponents use data- attributes. Use props instead. */
 /* TODO: Browserify  */
 
     var GithubRibbon = app.GithubRibbon;

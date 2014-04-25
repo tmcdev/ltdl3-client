@@ -13,7 +13,7 @@ var app = app || {};
             return (
                 <div className="jumbotron">
                     <form role="form">
-                        <div id="ltdl-search-builder">
+                        <div>
                             <SearchBuilderComponent/>
                         </div>
                         <div className="pull-right">

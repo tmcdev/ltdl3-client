@@ -20,6 +20,7 @@
         </div>
 
         <script src="scripts/githubRibbon.js"></script>
+        <script src="scripts/searchBuilderAdd.js"></script>
         <script src="scripts/searchBuilderTextBox.js"></script>
         <script src="scripts/searchBuilderFilterType.js"></script>
         <script src="scripts/searchBuilderFilterPhrase.js"></script>
@@ -28,29 +29,6 @@
         <script src="scripts/footer.js"></script>
         <script src="scripts/app.js"></script>
         <script>
-            // TODO: Inline script. No no no no no. (Well, yes yes yes after a build process perhaps.)
-            var focusSearchBox = function () {
-                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-box').focus();
-            }
-
-            var filterWhatCallback = function () {
-                var text = $(this).attr('data-ltdl-text');
-                if (typeof text !== "string") {
-                    text = $(this).text();
-                }
-                $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html(text + ' <span class="caret"></span>');
-                focusSearchBox.apply(this);
-            };
-
-            var filterWhatToSearchBoxCallback = function () {
-                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-box').val($(this).text());
-                // TODO: parent().parent().parent()? We can do better than that.
-                $(this).parents('.ltdl-search-builder-component').find('button.ltdl-filter-what').html($(this).parent().parent().parent().find('.hoist-to-button').text() + ' <span class="caret"></span>');
-                focusSearchBox.apply(this);
-            }
-
-            // TODO: Big long DOM string, no no no.
-            // TODO: classes sometimes prepended with ltdl- but not always. Make it always.
             var addSearchBuilderComponent = function (event) {
                 $(newSearchBuilderComponent).find('.show-in-button').on('click', filterWhatCallback);
                 $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
