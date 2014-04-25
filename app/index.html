@@ -20,6 +20,8 @@
         </div>
 
         <script src="scripts/githubRibbon.js"></script>
+        <script src="scripts/searchBuilderPhraseFilter.js"></script>
+        <script src="scripts/searchBuilderComponent.js"></script>
         <script src="scripts/searchBuilder.js"></script>
         <script src="scripts/footer.js"></script>
         <script src="scripts/app.js"></script>
@@ -45,98 +47,11 @@
                 focusSearchBox.apply(this);
             }
 
-            var filterPhraseCallback = function () {
-                $(this).parents('.ltdl-search-builder-component').find('.ltdl-filter-phrase').html($(this).text() + ' <span class="caret"></span>');
-                focusSearchBox.apply(this);
-            };
-
             // TODO: Big long DOM string, no no no.
             // TODO: classes sometimes prepended with ltdl- but not always. Make it always.
             var addSearchBuilderComponent = function (event) {
-                var newSearchBuilderComponent = $('<div class="form-group ltdl-search-builder-component">' +
-                    '<div class="input-group">' +
-                        '<div class="input-group-btn">' +
-                            '<button type="button" class="btn btn-default dropdown-toggle ltdl-filter-what" data-toggle="dropdown">' +
-                                'Everywhere <span class="caret"></span>' +
-                            '</button>' +
-                            '<ul class="dropdown-menu ltdl-filter-what" role="menu">' +
-                                '<li><a class="show-in-button" href="#">Everywhere</a></li>' +
-                                '<li><a class="show-in-button" href="#">Title</a></li>' +
-                                '<li><a class="show-in-button" href="#">Person</a></li>' +
-                                '<li><a class="show-in-button" href="#">Organization</a></li>' +
-                                '<li class="dropdown-submenu">' +
-                                    '<a class="hoist-to-button" href="#">Type</a>' +
-                                    '<ul class="dropdown-menu ltdl-filter-what-phrase">' +
-                                        '<li><a class="show-in-search-box" href="#">Letter</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Email</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Report</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Ad</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Video</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Memo</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Newsletter</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Journal</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Invoice</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Financial</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Agenda</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Form</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Article</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Audio</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Graphics</a></li>' +
-                                        '<li><a class="show-in-button" data-ltdl-text="Type" href="#">Other</a></li>' +
-                                    '</ul>' +
-                                '</li>' +
-                                '<li class="dropdown-submenu">' +
-                                    '<a class="hoist-to-button" href="#">Brand Name</a>' +
-                                    '<ul class="dropdown-menu ltdl-filter-what-phrase">' +
-                                        '<li><a class="show-in-search-box" href="#">Camel</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Marlboro</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Virginia Slims</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Skoal</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Garcia Y Vega</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">More</a></li>' +
-                                        '<li><a class="show-in-search-box" href="#">Winston</a></li>' +
-                                        '<li><a class="show-in-button" data-ltdl-text="Brand Name" href="#">Other</a></li>' +
-                                    '</ul>' +
-                                '</li>' +
-                                '<li><a class="show-in-button" href="#">Bates Number</a></li>' +
-                                '<li><a class="show-in-button" href="#">ID Number</a></li>' +
-                                '<li class="divider"></li>' +
-                                '<li class="dropdown-submenu">' +
-                                    '<a href="#">More</a>' +
-                                    '<ul class="dropdown-menu">' +
-                                        '<li><a class="show-in-button" href="#">Text</a></li>' +
-                                        '<li><a class="show-in-button" href="#">Metadata</a></li>' +
-                                        '<li><a class="show-in-button" href="#">Keyword</a></li>' +
-                                        '<li><a class="show-in-button" href="#">Notes</a></li>' +
-                                    '</ul>' +
-                                '</li>' +
-                            '</ul>' +
-                        '</div>' +
-                        '<div class="input-group-btn">' +
-                            '<button type="button" class="btn btn-default dropdown-toggle ltdl-filter-phrase" data-toggle="dropdown">' +
-                                'for any of the words <span class="caret"></span>' +
-                            '</button>' +
-                            '<ul class="dropdown-menu" role="menu">' +
-                                '<li><a class="show-in-phrase-button" href="#">for any of the words</a></li>' +
-                                '<li><a class="show-in-phrase-button" href="#">for all of the words</a></li>' +
-                                '<li><a class="show-in-phrase-button" href="#">for the exact phrase</a></li>' +
-                            '</ul>' +
-                        '</div>' +
-                        '<input class="form-control ltdl-search-box" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n">' +
-                        '<div class="input-group-btn ltdl-search-plus">' +
-                            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span></button>' +
-                            '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                                '<li><a class="ltdl-search-add" href="#">AND</a></li>' +
-                                '<li><a class="ltdl-search-add" href="#">OR</a></li>' +
-                                '<li><a class="ltdl-search-add" href="#">NOT</a></li>' +
-                            '</ul>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>');
-
                 $(newSearchBuilderComponent).find('.show-in-button').on('click', filterWhatCallback);
                 $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
-                $(newSearchBuilderComponent).find('.show-in-phrase-button').on('click', filterPhraseCallback);
 
                 $(newSearchBuilderComponent).find('.ltdl-search-add').one('click', addSearchBuilderComponent);
 
@@ -147,22 +62,18 @@
                     $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-builder-boolean').html($(this).text() + ' <span class="caret"></span>');
                 };
 
-                if (event.type === "click") {
-                    var minus = $('<div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle ltdl-search-builder-boolean" data-toggle="dropdown">' + $(this).text() + ' <span class="caret"></span></button>' +
-                        '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                        '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">AND</a></li>' +
-                        '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">OR</a></li>' +
-                        '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">NOT</a></li>' +
-                        '</ul><button type="button" class="btn btn-default ltdl-search-minus"><span class="glyphicon glyphicon-minus"></span></button></div>');
-                    $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').replaceWith(minus);
-                    minus.find('.ltdl-search-minus').one('click', function () {
-                        $(this).parents('.ltdl-search-builder-component').remove();
-                    });
-                    minus.find('.ltdl-search-builder-boolean-dropdown').on('click', booleanCallback);
-                }
+                var minus = $('<div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle ltdl-search-builder-boolean" data-toggle="dropdown">' + $(this).text() + ' <span class="caret"></span></button>' +
+                    '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                    '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">AND</a></li>' +
+                    '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">OR</a></li>' +
+                    '<li class="ltdl-search-builder-boolean-dropdown"><a href="#">NOT</a></li>' +
+                    '</ul><button type="button" class="btn btn-default ltdl-search-minus"><span class="glyphicon glyphicon-minus"></span></button></div>');
+                $(this).parents('.ltdl-search-builder-component').find('.ltdl-search-plus').replaceWith(minus);
+                minus.find('.ltdl-search-minus').one('click', function () {
+                    $(this).parents('.ltdl-search-builder-component').remove();
+                });
+                minus.find('.ltdl-search-builder-boolean-dropdown').on('click', booleanCallback);
             };
-
-            $('document').ready(addSearchBuilderComponent);
         </script>
     </body>
 </html>

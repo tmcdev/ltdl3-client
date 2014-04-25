@@ -17,7 +17,7 @@ var app = app || {};
             return (
                 <div className="container">
                     <GithubRibbon/>
-                    <h4>LTDL3 Search Builder Prototype</h4>
+                    <h1>LTDL3 Search Builder Prototype</h1>
                     <SearchBuilder/>
                     <Footer/>
                 </div>
