@@ -16,8 +16,9 @@ var app = app || {};
             }
         },
         add: function (event) {
+            this.setState({boolean: event.target.getAttribute('data-boolean')});
+
             if (this.state.plusOrMinus === "plus") {
-                this.state.boolean = event.target.getAttribute('data-boolean');
                 this.setState({plusOrMinus: "minus"});
                 this.props.add(this.props.index);
             }

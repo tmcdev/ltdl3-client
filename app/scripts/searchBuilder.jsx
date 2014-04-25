@@ -18,7 +18,7 @@ var app = app || {};
         },
         remove: function (index) {
             var components = this.state.components;
-            components.splice(index,1);
+            delete(components[index]);
             this.setState({
                 components: components
             });
