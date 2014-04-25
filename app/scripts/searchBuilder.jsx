@@ -9,16 +9,23 @@ var app = app || {};
     var SearchBuilderComponent = app.SearchBuilderComponent;
 
     app.SearchBuilder = React.createClass({
-        add: function () {
+        add: function (index) {
             var components = this.state.components;
-            components.push(<SearchBuilderComponent add={this.add}/>);
+            components.push(<SearchBuilderComponent index={index+1} add={this.add} remove={this.remove}/>);
+            this.setState({
+                components: components
+            });
+        },
+        remove: function (index) {
+            var components = this.state.components;
+            delete components[index];
             this.setState({
                 components: components
             });
         },
         getInitialState: function () {
             return {
-                components: [<SearchBuilderComponent add={this.add}/>]
+                components: [<SearchBuilderComponent index={0} add={this.add} remove={this.remove}/>]
             }
         },
         render: function() {

@@ -30,11 +30,6 @@
         <script src="scripts/app.js"></script>
         <script>
             var addSearchBuilderComponent = function (event) {
-                $(newSearchBuilderComponent).find('.show-in-button').on('click', filterWhatCallback);
-                $(newSearchBuilderComponent).find('.show-in-search-box').on('click', filterWhatToSearchBoxCallback);
-
-                $(newSearchBuilderComponent).find('.ltdl-search-add').one('click', addSearchBuilderComponent);
-
                 $('#ltdl-search-builder').append(newSearchBuilderComponent);
                 $('#ltdl-search-builder input').focus();
 
