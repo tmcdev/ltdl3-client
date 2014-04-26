@@ -13,9 +13,12 @@ var React = require('react');
         value: function (value) {
             this.refs.textInputElement.getDOMNode().value = value;
         },
+        handleChange: function () {
+            this.props.enablePhraseFilter();
+        },
         render: function () {
             return (
-                <input ref="textInputElement" className="form-control" type="text" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n"></input>
+                <input type="text" ref="textInputElement" onChange={this.handleChange} className="form-control" placeholder="Tip: use (*) or (?) to find word variants like legislat* and wom?n"></input>
             )
         }
     });
