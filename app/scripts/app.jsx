@@ -1,6 +1,7 @@
 /**
  * @jsx React.DOM
  */
+var React = require('react');
 var GithubRibbon = require('./GithubRibbon.jsx');
 var SearchBuilder = require('./SearchBuilder.jsx');
 var Footer = require('./Footer.jsx');

@@ -1,6 +1,7 @@
 /**
  * @jsx React.DOM
  */
+var React = require('react');
 var searchBuilderFilterType = require('./searchBuilderFilterType.jsx');
 var searchBuilderFilterPhrase = require('./searchBuilderFilterPhrase.jsx');
 var searchBuilderTextBox = require('./searchBuilderTextBox.jsx');
