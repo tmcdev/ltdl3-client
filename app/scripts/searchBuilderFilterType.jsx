@@ -1,12 +1,10 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
-
 (function () {
     'use strict';
 
-    app.searchBuilderFilterType = React.createClass({
+    module.exports = React.createClass({
         getInitialState: function () {
             return {filterType: "Everything"};
         },

@@ -36,9 +36,9 @@ module.exports = function (grunt) {
                 tasks: ['compass']
             },
 
-            react: {
+            browserify: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.jsx'],
-                tasks: ['react']
+                tasks: ['browserify']
             },
 
             livereload: {
@@ -210,26 +210,18 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        /* TODO: DRY this out */
-        react: {
+        browserify: {
+            options: {
+                transform:  [ require('grunt-react').browserify ]
+            },
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'app/scripts',
-                    src: ['**/*.jsx'],
-                    dest: 'dist/scripts',
-                    ext: '.js'
-                }]
+                src: '<%= yeoman.app %>/scripts/*.jsx',
+                dest:'<%= yeoman.dist %>/scripts/app.js'
             },
             server: {
-                files: [{
-                    expand: true,
-                    cwd: 'app/scripts',
-                    src: ['**/*.jsx'],
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
-            }
+                src: '<%= yeoman.app %>/scripts/app.jsx',
+                dest:'.tmp/scripts/app.js'
+            },
         },
     });
 
@@ -246,7 +238,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'compass:server',
-            'react:server',
+            'browserify:server',
             'connect:livereload',
             'copy',
             'open',
@@ -273,7 +265,7 @@ module.exports = function (grunt) {
         // 'concat',
         'cssmin',
         // 'uglify',
-        'react:dist',
+        'browserify:dist',
         'copy',
         'usemin'
     ]);

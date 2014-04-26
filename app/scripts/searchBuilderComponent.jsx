@@ -1,17 +1,15 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
+var searchBuilderFilterType = require('./searchBuilderFilterType.jsx');
+var searchBuilderFilterPhrase = require('./searchBuilderFilterPhrase.jsx');
+var searchBuilderTextBox = require('./searchBuilderTextBox.jsx');
+var searchBuilderAdd = require('./searchBuilderAdd.jsx');
 
 (function () {
     'use strict';
 
-    var searchBuilderFilterType = app.searchBuilderFilterType;
-    var searchBuilderFilterPhrase = app.searchBuilderFilterPhrase;
-    var searchBuilderTextBox = app.searchBuilderTextBox;
-    var searchBuilderAdd = app.searchBuilderAdd;
-
-    app.SearchBuilderComponent = React.createClass({
+    module.exports = React.createClass({
         focusTextBox: function () {
             this.refs.textBox.focus();
         },

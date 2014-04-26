@@ -1,12 +1,10 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
-
 (function () {
     'use strict';
 
-    app.GithubRibbon = React.createClass({
+    module.exports = React.createClass({
         render: function() {
             var style = {
                 position: 'absolute',
