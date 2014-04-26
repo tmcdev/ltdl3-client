@@ -15,7 +15,8 @@ var React = require('react');
             this.props.focusTextBox();
         },
         handleClickValue: function (event) {
-            this.props.setTextBox(event.target.getAttribute('data-text-value'))
+            this.props.setTextBox(event.target.getAttribute('data-text-value'));
+            this.props.disablePhraseFilter();
             this.handleClickType(event);
         },
         render: function() {

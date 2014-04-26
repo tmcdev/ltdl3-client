@@ -7,6 +7,12 @@ var React = require('react');
     'use strict';
 
     module.exports = React.createClass({
+        enable: function () {
+            this.refs.button.getDOMNode().removeAttribute('disabled');
+        },
+        disable: function () {
+            this.refs.button.getDOMNode().setAttribute('disabled', 'disabled');
+        },
         getInitialState: function () {
             return {filterPhrase: "for any of the words"};
         },
@@ -17,7 +23,7 @@ var React = require('react');
         render: function() {
             return (
                 <div className="input-group-btn">
-                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button ref="button" type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         {this.state.filterPhrase} <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu" role="menu">

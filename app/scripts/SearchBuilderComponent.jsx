@@ -17,6 +17,12 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
         setTextBox: function (value) {
             this.refs.textBox.value(value);
         },
+        disablePhraseFilter: function () {
+            this.refs.phraseFilter.disable();
+        },
+        enablePhraseFilter: function () {
+            this.refs.phraseFilter.enable();
+        },
         componentDidMount: function () {
             this.focusTextBox();
         },
@@ -24,8 +30,12 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
             return (
                 <div className="form-group">
                     <div className="input-group">
-                        <searchBuilderFilterType focusTextBox={this.focusTextBox} setTextBox={this.setTextBox}/>
-                        <searchBuilderFilterPhrase focusTextBox={this.focusTextBox}/>
+                        <searchBuilderFilterType
+                            focusTextBox={this.focusTextBox}
+                            setTextBox={this.setTextBox}
+                            disablePhraseFilter={this.disablePhraseFilter}
+                        />
+                        <searchBuilderFilterPhrase ref="phraseFilter" focusTextBox={this.focusTextBox}/>
                         <searchBuilderTextBox ref="textBox"/>
                         <searchBuilderAdd index={this.props.index} add={this.props.add} remove={this.props.remove}/>
                     </div>
