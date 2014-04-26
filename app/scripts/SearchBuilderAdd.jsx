@@ -1,6 +1,7 @@
 /**
  * @jsx React.DOM
  */
+var React = require('react');
 
 // TODO: magic value plusOrMinus = "plus" or "minus" should be booleanized or enumed
 
