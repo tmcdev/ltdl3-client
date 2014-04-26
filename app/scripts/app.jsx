@@ -19,7 +19,7 @@ var app = app || {};
                 <div className="container">
                     <GithubRibbon/>
                     <h1>LTDL3 Search Builder Prototype</h1>
-                    <SearchBuilder />
+                    <SearchBuilder/>
                     <Footer/>
                 </div>
             );
