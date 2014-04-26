@@ -1,12 +1,10 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
-
 (function () {
     'use strict';
 
-    app.Footer = React.createClass({
+    module.exports = React.createClass({
         render: function() {
             return (
                 <div id="footer">

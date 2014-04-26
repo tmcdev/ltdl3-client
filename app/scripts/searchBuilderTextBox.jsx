@@ -1,12 +1,10 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
-
 (function () {
     'use strict';
 
-    app.searchBuilderTextBox = React.createClass({
+    module.exports = React.createClass({
         focus: function () {
             this.refs.textInputElement.getDOMNode().focus();
         },

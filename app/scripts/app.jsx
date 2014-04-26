@@ -1,17 +1,16 @@
 /**
  * @jsx React.DOM
  */
+var GithubRibbon = require('./GithubRibbon.jsx');
+var SearchBuilder = require('./SearchBuilder.jsx');
+var Footer = require('./Footer.jsx');
+
 var app = app || {};
 
 (function () {
     'use strict';
 
 /* TODO: Subcomponents use data- attributes. Use props instead. */
-/* TODO: Browserify  */
-
-    var GithubRibbon = app.GithubRibbon;
-    var SearchBuilder = app.SearchBuilder;
-    var Footer = app.Footer;
 
     var LtdlApp = React.createClass({
         render: function () {
@@ -19,7 +18,7 @@ var app = app || {};
                 <div className="container">
                     <GithubRibbon/>
                     <h1>LTDL3 Search Builder Prototype</h1>
-                    <SearchBuilder />
+                    <SearchBuilder/>
                     <Footer/>
                 </div>
             );

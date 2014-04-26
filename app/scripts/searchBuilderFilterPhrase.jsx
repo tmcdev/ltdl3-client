@@ -1,12 +1,11 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
 
 (function () {
     'use strict';
 
-    app.searchBuilderFilterPhrase = React.createClass({
+    module.exports = React.createClass({
         getInitialState: function () {
             return {filterPhrase: "for any of the words"};
         },

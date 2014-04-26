@@ -1,14 +1,13 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
 
 // TODO: magic value plusOrMinus = "plus" or "minus" should be booleanized or enumed
 
 (function () {
     'use strict';
 
-    app.searchBuilderAdd = React.createClass({
+    module.exports = React.createClass({
         getInitialState: function () {
             return {
                 plusOrMinus: "plus",

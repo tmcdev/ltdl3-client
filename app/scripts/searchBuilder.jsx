@@ -1,14 +1,12 @@
 /**
  * @jsx React.DOM
  */
-var app = app || {};
+var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
 
 (function () {
     'use strict';
 
-    var SearchBuilderComponent = app.SearchBuilderComponent;
-
-    app.SearchBuilder = React.createClass({
+    module.exports = React.createClass({
         add: function (index) {
             var components = this.state.components;
             components.push(<SearchBuilderComponent key={"comp"+(index+1)} index={index+1} add={this.add} remove={this.remove}/>);
