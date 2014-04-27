@@ -185,7 +185,11 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
                             setTextBox:this.setTextBox,
                             disablePhraseFilter:this.disablePhraseFilter}
                         ),
-                        searchBuilderFilterPhrase( {ref:"phraseFilter", focusTextBox:this.focusTextBox}),
+                        searchBuilderFilterPhrase(
+                            {index:this.props.index,
+                            ref:"phraseFilter",
+                            focusTextBox:this.focusTextBox}
+                        ),
                         searchBuilderTextBox( {enablePhraseFilter:this.enablePhraseFilter, ref:"textBox"}),
                         searchBuilderAdd( {index:this.props.index, add:this.props.add, remove:this.props.remove})
                     )
@@ -220,15 +224,27 @@ var React = require('react');
             this.props.focusTextBox();
         },
         render: function() {
+            var choices = [
+                {key: 'choice0', label: 'for any of the words'},
+                {key: 'choice1', label: 'for all of the words'},
+                {key: 'choice2', label: 'for the exact phrase'}
+            ];
+            if (this.props.index > 0) {
+                choices.push(
+                    {key: 'choice3', label: 'excluding the words'},
+                    {key:'choice4', label: 'excluding the phrase'})
+                ;
+            }
+            var renderedChoices = choices.map(function (choice) {
+                return React.DOM.li( {key:choice.key}, React.DOM.a( {'data-value':choice.label, onClick:this.handleClick, href:"#"}, choice.label));
+            }.bind(this));
             return (
                 React.DOM.div( {className:"input-group-btn"}, 
                     React.DOM.button( {ref:"button", type:"button", className:"btn btn-default dropdown-toggle", 'data-toggle':"dropdown"}, 
                         this.state.filterPhrase, " ", React.DOM.span( {className:"caret"})
                     ),
                     React.DOM.ul( {className:"dropdown-menu", role:"menu"}, 
-                        React.DOM.li(null, React.DOM.a( {'data-value':"for any of the words", onClick:this.handleClick, href:"#"}, "for any of the words")),
-                        React.DOM.li(null, React.DOM.a( {'data-value':"for all of the words", onClick:this.handleClick, href:"#"}, "for all of the words")),
-                        React.DOM.li(null, React.DOM.a( {'data-value':"for the exact phrase", onClick:this.handleClick, href:"#"}, "for the exact phrase"))
+                        renderedChoices
                     )
                 )
             );
