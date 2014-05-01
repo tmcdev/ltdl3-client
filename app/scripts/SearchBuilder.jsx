@@ -37,6 +37,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
             queryExpressions[index] = value;
         },
         handleSubmit: function () {
+            this.props.showResults({loading: true, data: {}});
             $.ajax({
                 url: this.props.url,
                 type: 'GET',
@@ -44,7 +45,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 dataType: 'jsonp',
                 jsonp: 'json.wrf',
                 success: function(data) {
-                    this.props.showResults({data: data});
+                    this.props.showResults({loading: false, data: data});
                 }.bind(this)
             });
             return false;
