@@ -6,11 +6,22 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
 
 (function () {
     'use strict';
+    var queryExpressions = [];
+
+    var getQueryString = function () {
+        return queryExpressions.join(' ');
+    };
 
     module.exports = React.createClass({
         add: function (index) {
             var components = this.state.components;
-            components.push(<SearchBuilderComponent key={"comp"+(index+1)} index={index+1} add={this.add} remove={this.remove}/>);
+            components.push(<SearchBuilderComponent
+                value=""
+                key={"comp"+(index+1)}
+                index={index+1}
+                add={this.add}
+                remove={this.remove}
+                setQueryExpression={this.setQueryExpression}/>);
             this.setState({
                 components: components
             });
@@ -22,12 +33,14 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 components: components
             });
         },
+        setQueryExpression: function (value, index) {
+            queryExpressions[index] = value;
+        },
         handleSubmit: function () {
-            console.dir(this.refs.components);
             $.ajax({
                 url: this.props.url,
                 type: 'GET',
-                data: {q: 'tobacco', wt: 'json'},
+                data: {q: getQueryString(), wt: 'json'},
                 dataType: 'jsonp',
                 jsonp: 'json.wrf',
                 success: function(data) {
@@ -38,7 +51,13 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         },
         getInitialState: function () {
             return {
-                components: [<SearchBuilderComponent key="comp0" index={0} add={this.add} remove={this.remove}/>]
+                components: [<SearchBuilderComponent
+                    value=""
+                    key="comp0"
+                    index={0}
+                    add={this.add}
+                    remove={this.remove}
+                    setQueryExpression={this.setQueryExpression}/>]
             }
         },
         render: function() {

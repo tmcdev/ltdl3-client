@@ -12,7 +12,6 @@ var React = require('react');
         },
         show: function (value) {
             this.setState(value);
-            console.dir(this.state);
         },
         render: function () {
             var data = this.state.data,

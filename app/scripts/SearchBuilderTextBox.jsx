@@ -10,12 +10,12 @@ var React = require('react');
         focus: function () {
             this.refs.textInputElement.getDOMNode().focus();
         },
-        getInitialState: function () {
-            return {value: ''};
-        },
         handleChange: function (event) {
             this.props.enablePhraseFilter();
-            this.setState({value: event.target.value});
+            this.props.setTextBoxValue(event.target.value);
+        },
+        getInitialState: function () {
+            return { value: '' };
         },
         render: function () {
             return (
