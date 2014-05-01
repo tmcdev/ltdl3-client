@@ -9,13 +9,15 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
 
 (function () {
     'use strict';
+    var queryExpression = '';
 
     module.exports = React.createClass({
         focusTextBox: function () {
             this.refs.textBox.focus();
         },
-        setTextBox: function (value) {
-            this.refs.textBox.value(value);
+        setTextBoxValue: function (value) {
+            this.refs.textBox.setState({value: value});
+            this.props.setQueryExpression(value, this.props.index);
         },
         disablePhraseFilter: function () {
             this.refs.phraseFilter.disable();
@@ -32,7 +34,7 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
                     <div className="input-group">
                         <searchBuilderFilterType
                             focusTextBox={this.focusTextBox}
-                            setTextBox={this.setTextBox}
+                            setTextBox={this.setTextBoxValue}
                             disablePhraseFilter={this.disablePhraseFilter}
                         />
                         <searchBuilderFilterPhrase
@@ -40,7 +42,7 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
                             ref="phraseFilter"
                             focusTextBox={this.focusTextBox}
                         />
-                        <searchBuilderTextBox enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
+                        <searchBuilderTextBox setTextBoxValue={this.setTextBoxValue} enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
                         <searchBuilderAdd index={this.props.index} add={this.props.add} remove={this.props.remove}/>
                     </div>
                 </div>

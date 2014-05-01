@@ -6,11 +6,22 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
 
 (function () {
     'use strict';
+    var queryExpressions = [];
+
+    var getQueryString = function () {
+        return queryExpressions.join(' ');
+    };
 
     module.exports = React.createClass({
         add: function (index) {
             var components = this.state.components;
-            components.push(<SearchBuilderComponent key={"comp"+(index+1)} index={index+1} add={this.add} remove={this.remove}/>);
+            components.push(<SearchBuilderComponent
+                value=""
+                key={"comp"+(index+1)}
+                index={index+1}
+                add={this.add}
+                remove={this.remove}
+                setQueryExpression={this.setQueryExpression}/>);
             this.setState({
                 components: components
             });
@@ -22,16 +33,38 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 components: components
             });
         },
+        setQueryExpression: function (value, index) {
+            queryExpressions[index] = value;
+        },
+        handleSubmit: function () {
+            $.ajax({
+                url: this.props.url,
+                type: 'GET',
+                data: {q: getQueryString(), wt: 'json'},
+                dataType: 'jsonp',
+                jsonp: 'json.wrf',
+                success: function(data) {
+                    this.props.showResults({data: data});
+                }.bind(this)
+            });
+            return false;
+        },
         getInitialState: function () {
             return {
-                components: [<SearchBuilderComponent key="comp0" index={0} add={this.add} remove={this.remove}/>]
+                components: [<SearchBuilderComponent
+                    value=""
+                    key="comp0"
+                    index={0}
+                    add={this.add}
+                    remove={this.remove}
+                    setQueryExpression={this.setQueryExpression}/>]
             }
         },
         render: function() {
             return (
                 <div className="jumbotron">
-                    <form role="form">
-                        <div>
+                    <form onSubmit={this.handleSubmit} role="form">
+                        <div ref="components">
                             {this.state.components}
                         </div>
                         <div className="pull-right">
