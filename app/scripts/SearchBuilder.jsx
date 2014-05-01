@@ -22,6 +22,21 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 components: components
             });
         },
+        handleSubmit: function (query) {
+            //query.wt = 'json';
+            // JSONP hack
+            $.ajax({
+                url: this.props.url,
+                type: 'GET',
+                data: {q: 'tobacco', wt: 'json'},
+                dataType: 'jsonp',
+                jsonp: 'json.wrf',
+                success: function(data) {
+                    this.props.showResults({data: data});
+                }.bind(this)
+            });
+            return false;
+        },
         getInitialState: function () {
             return {
                 components: [<SearchBuilderComponent key="comp0" index={0} add={this.add} remove={this.remove}/>]
@@ -30,7 +45,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         render: function() {
             return (
                 <div className="jumbotron">
-                    <form role="form">
+                    <form onSubmit={this.handleSubmit} role="form">
                         <div>
                             {this.state.components}
                         </div>
