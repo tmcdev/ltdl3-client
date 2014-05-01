@@ -22,6 +22,10 @@ var React = require('react');
                 renderedRange,
                 renderedResults;
 
+            if (this.state.loading) {
+                return (<div><progress>Loading&hellip;</progress></div>);
+            }
+
             if (data) {
                 response = data.response;
             }
@@ -30,7 +34,11 @@ var React = require('react');
                 docs = response.docs;
                 numFound = response.numFound;
                 start = response.start;
-                renderedRange = <div>{start+1}-{start+docs.length} of {numFound}</div>;
+                if (numFound > 0) {
+                    renderedRange = <div>{start+1}-{start+docs.length} of {numFound}</div>;
+                } else {
+                    renderedRange = <div>No results found.</div>;
+                }
                 renderedResults = <ol className="ltdl-search-results">
                                     {docs.map(function (doc) {
                                         return <li key={doc.id}><a href="#">{doc.ti}</a></li>;
