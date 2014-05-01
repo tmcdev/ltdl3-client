@@ -22,8 +22,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 components: components
             });
         },
-        handleSubmit: function (query) {
-            //query.wt = 'json';
+        handleSubmit: function () {
             // JSONP hack
             $.ajax({
                 url: this.props.url,

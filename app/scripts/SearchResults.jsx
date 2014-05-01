@@ -20,30 +20,30 @@ var React = require('react');
                 numFound,
                 docs,
                 start,
-                howMany;
+                renderedRange,
+                renderedResults;
 
             if (data) {
                 response = data.response;
             }
 
-            if (response) {
+            if (response && response.docs instanceof Array) {
+                docs = response.docs;
                 numFound = response.numFound;
                 start = response.start;
-                if (response.docs instanceof Array) {
-                    docs = response.docs;
-                    howMany = <div>{start+1}-{start+docs.length} of {numFound}</div>;
-                }
+                renderedRange = <div>{start+1}-{start+docs.length} of {numFound}</div>;
+                renderedResults = <ol className="ltdl-search-results">
+                                    {docs.map(function (doc) {
+                                        return <li key={doc.id}><a href="#">{doc.ti}</a></li>;
+                                    }.bind(this))}
+                                </ol>;
             }
 
-            //count = <div>1-10 of 30234</div>;
 
             return (
                 <div>
-                    {howMany}
-                    <ol>
-                        <li>Whatsup</li>
-                        <li>You too</li>
-                    </ol>
+                    {renderedRange}
+                    {renderedResults}
                 </div>
             );
         }
