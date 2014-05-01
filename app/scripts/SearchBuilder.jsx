@@ -23,7 +23,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
             });
         },
         handleSubmit: function () {
-            // JSONP hack
+            console.dir(this.refs.components);
             $.ajax({
                 url: this.props.url,
                 type: 'GET',
@@ -45,7 +45,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
             return (
                 <div className="jumbotron">
                     <form onSubmit={this.handleSubmit} role="form">
-                        <div>
+                        <div ref="components">
                             {this.state.components}
                         </div>
                         <div className="pull-right">

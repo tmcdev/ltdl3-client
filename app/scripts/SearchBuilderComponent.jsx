@@ -15,7 +15,7 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
             this.refs.textBox.focus();
         },
         setTextBox: function (value) {
-            this.refs.textBox.value(value);
+            this.refs.textBox.setState({value: value});
         },
         disablePhraseFilter: function () {
             this.refs.phraseFilter.disable();
@@ -40,7 +40,7 @@ var searchBuilderAdd = require('./searchBuilderAdd.jsx');
                             ref="phraseFilter"
                             focusTextBox={this.focusTextBox}
                         />
-                        <searchBuilderTextBox enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
+                        <searchBuilderTextBox value="" enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
                         <searchBuilderAdd index={this.props.index} add={this.props.add} remove={this.props.remove}/>
                     </div>
                 </div>
