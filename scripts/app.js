@@ -428,7 +428,13 @@ var React = require('react');
                 renderedResults;
 
             if (this.state.loading) {
-                return (React.DOM.div(null, React.DOM.progress(null, "Loading…")));
+                return (
+                    React.DOM.div( {className:"progress progress-striped active"}, 
+                        React.DOM.div( {className:"progress-bar progress-bar-indeterminate", role:"progressbar"}, 
+                            React.DOM.span( {className:"sr-only"}, "Loading...")
+                        )
+                    )
+                );
             }
 
             if (data) {
