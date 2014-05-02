@@ -60,7 +60,7 @@ module.exports = function (grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
+                            mountFolder(connect, yeomanConfig.dist)
                         ];
                     }
                 }
@@ -200,19 +200,9 @@ module.exports = function (grunt) {
         },
     });
 
-    grunt.registerTask('server', function (target) {
-        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-        grunt.task.run(['serve:' + target]);
-    });
-
-    grunt.registerTask('serve', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-        }
-
+    grunt.registerTask('serve', function () {
         grunt.task.run([
-            'clean:server',
-            'browserify:server',
+            'build',
             'connect:livereload',
             'copy',
             'open',
