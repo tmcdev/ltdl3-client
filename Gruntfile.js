@@ -90,7 +90,7 @@ module.exports = function (grunt) {
         jasmine: {
             all: {
                 options: {
-                    specs: 'test/spec/*.js',
+                    specs: '.tmp/test.js',
                 }
             },
         },
@@ -172,6 +172,10 @@ module.exports = function (grunt) {
                 src: '<%= paths.app %>/scripts/*.jsx',
                 dest:'<%= paths.dist %>/scripts/app.js'
             },
+            test: {
+                src: 'test/spec/test.jsx',
+                dest: '.tmp/test.js',
+            },
         },
     });
 
@@ -187,6 +191,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean',
+        'browserify:test',
         'jasmine'
     ]);
 
