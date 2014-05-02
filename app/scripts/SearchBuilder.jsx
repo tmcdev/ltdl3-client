@@ -42,8 +42,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 url: this.props.url,
                 type: 'GET',
                 data: {q: getQueryString(), wt: 'json'},
-                dataType: 'jsonp',
-                jsonp: 'json.wrf',
+                dataType: 'json',
                 success: function(data) {
                     this.props.showResults({loading: false, data: data});
                 }.bind(this)
