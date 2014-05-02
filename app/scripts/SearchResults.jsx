@@ -45,9 +45,17 @@ var React = require('react');
                 } else {
                     renderedRange = <div>No results found.</div>;
                 }
+                console.dir(docs);
                 renderedResults = <ol className="ltdl-search-results">
                                     {docs.map(function (doc) {
-                                        return <li key={doc.id}><a href="#">{doc.ti}</a></li>;
+                                        return <li key={doc.id}>
+                                            <div className="pull-right checkbox">
+                                                <label>
+                                                    <input type="checkbox"> Bookmark</input>
+                                                </label>
+                                            </div>
+                                            <a href="#">{doc.ti}</a>
+                                        </li>;
                                     }.bind(this))}
                                 </ol>;
             }
