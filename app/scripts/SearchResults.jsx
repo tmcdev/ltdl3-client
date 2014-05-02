@@ -23,7 +23,13 @@ var React = require('react');
                 renderedResults;
 
             if (this.state.loading) {
-                return (<div><progress>Loading&hellip;</progress></div>);
+                return (
+                    <div className="progress progress-striped active">
+                        <div className="progress-bar progress-bar-indeterminate" role="progressbar">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                );
             }
 
             if (data) {
