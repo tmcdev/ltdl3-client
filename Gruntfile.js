@@ -31,11 +31,6 @@ module.exports = function (grunt) {
                 livereload: true
             },
 
-            compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass']
-            },
-
             browserify: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.jsx'],
                 tasks: ['browserify']
@@ -120,24 +115,6 @@ module.exports = function (grunt) {
             }
         },
 
-        compass: {
-            options: {
-                sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                imagesDir: '<%= yeoman.app %>/images',
-                javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components',
-                relativeAssets: true
-            },
-            dist: {},
-            server: {
-                options: {
-                    debugInfo: true
-                }
-            }
-        },
-
         useminPrepare: {
             html: '<%= yeoman.app %>/index.html',
             options: {
@@ -162,14 +139,14 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            dist: {
-                files: {
-                    '<%= yeoman.dist %>/styles/main.css': [
-                        '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
-                    ]
-                }
-            }
+            // dist: {
+            //     files: {
+            //         '<%= yeoman.dist %>/styles/main.css': [
+            //             '.tmp/styles/{,*/}*.css',
+            //             '<%= yeoman.app %>/styles/{,*/}*.css'
+            //         ]
+            //     }
+            // }
         },
         htmlmin: {
             dist: {
@@ -237,7 +214,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'compass:server',
             'browserify:server',
             'connect:livereload',
             'copy',
@@ -248,21 +224,16 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-
-        'compass',
-
-
         'connect:test',
         'mocha'
     ]);
 
     grunt.registerTask('build', [
         'clean:dist',
-        'compass:dist',
         'useminPrepare',
         'imagemin',
         'htmlmin',
-        // 'concat',
+        'concat',
         'cssmin',
         // 'uglify',
         'browserify:dist',
