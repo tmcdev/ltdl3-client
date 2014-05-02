@@ -449,9 +449,24 @@ var React = require('react');
                 } else {
                     renderedRange = React.DOM.div(null, "No results found.");
                 }
-                renderedResults = React.DOM.ol( {className:"ltdl-search-results"}, 
+                renderedResults = React.DOM.ol( {className:"list-unstyled"}, 
                                     docs.map(function (doc) {
-                                        return React.DOM.li( {key:doc.id}, React.DOM.a( {href:"#"}, doc.ti));
+                                        return React.DOM.li( {key:doc.id}, 
+                                            React.DOM.div( {className:"pull-right checkbox"}, 
+                                                React.DOM.label(null, 
+                                                    React.DOM.input( {type:"checkbox"},  " Bookmark")
+                                                )
+                                            ),
+                                            React.DOM.a( {href:"#"}, doc.ti),
+                                            React.DOM.dl( {className:"dl-horizontal"}, 
+                                                React.DOM.dt(null, "Document date"),React.DOM.dd(null, doc.dd || 'Unknown'),
+                                                React.DOM.dt(null, "Document type"),React.DOM.dd(null, doc.dt || 'Unknown'),
+                                                React.DOM.dt(null, "Bates number"),React.DOM.dd(null, doc.bn || 'Unknown'),
+                                                React.DOM.dt(null, "Source"),React.DOM.dd(null, doc.source || 'Unknown'),
+                                                React.DOM.dt(null, "Pages"),React.DOM.dd(null, doc.pg || 'Unknown')
+
+                                            )
+                                        );
                                     }.bind(this))
                                 );
             }
