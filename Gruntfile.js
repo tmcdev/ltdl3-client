@@ -11,14 +11,13 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
-    // configurable paths
-    var yeomanConfig = {
+    var paths = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
     };
 
     grunt.initConfig({
-        yeoman: yeomanConfig,
+        paths: paths,
         watch: {
             options: {
                 nospawn: true,
@@ -26,7 +25,7 @@ module.exports = function (grunt) {
             },
 
             browserify: {
-                files: ['<%= yeoman.app %>/scripts/**/*.jsx'],
+                files: ['<%= paths.app %>/scripts/**/*.jsx'],
                 tasks: ['browserify']
             },
 
@@ -35,10 +34,10 @@ module.exports = function (grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                    '<%= yeoman.app %>/*.html',
-                    '{.tmp,<%= yeoman.app %>}/styles/**/*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/**/*.js',
-                    '<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp}'
+                    '<%= paths.app %>/*.html',
+                    '{.tmp,<%= paths.app %>}/styles/**/*.css',
+                    '{.tmp,<%= paths.app %>}/scripts/**/*.js',
+                    '<%= paths.app %>/images/**/*.{png,jpg,jpeg,gif,webp}'
                 ]
             }
         },
@@ -54,18 +53,7 @@ module.exports = function (grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.dist)
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'test'),
-                            mountFolder(connect, yeomanConfig.app)
+                            mountFolder(connect, paths.dist)
                         ];
                     }
                 }
@@ -74,7 +62,7 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                            mountFolder(connect, yeomanConfig.dist)
+                            mountFolder(connect, paths.dist)
                         ];
                     }
                 }
@@ -86,8 +74,7 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            dist: ['.tmp', '<%= yeoman.dist %>/*'],
-            server: '.tmp'
+            all: ['.tmp', '<%= paths.dist %>/*'],
         },
         jshint: {
             options: {
@@ -95,48 +82,46 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             },
             all: [
-                '<%= yeoman.app %>/scripts/**/*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
+                '<%= paths.app %>/scripts/**/*.js',
+                '!<%= paths.app %>/scripts/vendor/*',
                 'test/spec/**/*.js'
             ]
         },
-        mocha: {
+        jasmine: {
             all: {
                 options: {
-                    run: true,
-                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
+                    specs: '.tmp/test.js',
                 }
-            }
+            },
         },
-
         useminPrepare: {
-//            html: '<%= yeoman.app %>/index.html',
+//            html: '<%= paths.app %>/index.html',
             options: {
-                dest: '<%= yeoman.dist %>'
+                dest: '<%= paths.dist %>'
             }
         },
         usemin: {
-//            html: ['<%= yeoman.dist %>/**/*.html'],
-            css: ['<%= yeoman.dist %>/styles/**/*.css'],
+//            html: ['<%= paths.dist %>/**/*.html'],
+            css: ['<%= paths.dist %>/styles/**/*.css'],
             options: {
-                dirs: ['<%= yeoman.dist %>']
+                dirs: ['<%= paths.dist %>']
             }
         },
         imagemin: {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/images',
+                    cwd: '<%= paths.app %>/images',
                     src: '**/*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/images'
+                    dest: '<%= paths.dist %>/images'
                 }]
             }
         },
         cssmin: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/styles/main.css': [
-                        '<%= yeoman.app %>/styles/main.css'
+                    '<%= paths.dist %>/styles/main.css': [
+                        '<%= paths.app %>/styles/main.css'
                     ]
                 }
             }
@@ -156,9 +141,9 @@ module.exports = function (grunt) {
                 // },
                 // files: [{
                 //     expand: true,
-                //     cwd: '<%= yeoman.app %>',
+                //     cwd: '<%= paths.app %>',
                 //     src: '*.html',
-                //     dest: '<%= yeoman.dist %>'
+                //     dest: '<%= paths.dist %>'
                 // }]
             // }
         },
@@ -167,8 +152,8 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.dist %>',
+                    cwd: '<%= paths.app %>',
+                    dest: '<%= paths.dist %>',
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
@@ -184,12 +169,12 @@ module.exports = function (grunt) {
                 transform:  [ require('grunt-react').browserify ]
             },
             dist: {
-                src: '<%= yeoman.app %>/scripts/*.jsx',
-                dest:'<%= yeoman.dist %>/scripts/app.js'
+                src: '<%= paths.app %>/scripts/*.jsx',
+                dest:'<%= paths.dist %>/scripts/app.js'
             },
-            server: {
-                src: '<%= yeoman.app %>/scripts/app.jsx',
-                dest:'.tmp/scripts/app.js'
+            test: {
+                src: 'test/spec/test.jsx',
+                dest: '.tmp/test.js',
             },
         },
     });
@@ -205,13 +190,13 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-        'clean:server',
-        'connect:test',
-        'mocha'
+        'clean',
+        'browserify:test',
+        'jasmine'
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
+        'clean',
         'useminPrepare',
         'imagemin',
         //'htmlmin',

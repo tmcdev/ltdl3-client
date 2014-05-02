@@ -7,8 +7,6 @@ var SearchBuilder = require('./SearchBuilder.jsx');
 var SearchResults = require('./SearchResults.jsx');
 var Footer = require('./Footer.jsx');
 
-var app = app || {};
-
 (function () {
     'use strict';
 
