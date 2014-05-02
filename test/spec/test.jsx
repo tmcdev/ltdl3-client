@@ -1,11 +1,12 @@
-/*global describe, it, expect */
+/*global describe, it, expect, jasmine */
 'use strict';
+
+var React = require('react/addons');
+
 (function () {
-    describe('Give it some context', function () {
-        describe('maybe a bit more context here', function () {
-            it('should run here few assertions', function () {
-                expect(true).toBe(true);
-            });
+    describe('React.addons', function () {
+        it('should include TestUtils', function () {
+            expect(React.addons.TestUtils).toEqual(jasmine.any(Object));
         });
     });
 })();
