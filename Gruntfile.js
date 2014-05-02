@@ -75,7 +75,7 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            dist: ['.tmp', '<%= yeoman.dist %>/*'],
+            all: ['.tmp', '<%= yeoman.dist %>/*'],
         },
         jshint: {
             options: {
@@ -95,7 +95,6 @@ module.exports = function (grunt) {
                 }
             },
         },
-
         useminPrepare: {
 //            html: '<%= yeoman.app %>/index.html',
             options: {
@@ -174,10 +173,6 @@ module.exports = function (grunt) {
                 src: '<%= yeoman.app %>/scripts/*.jsx',
                 dest:'<%= yeoman.dist %>/scripts/app.js'
             },
-            server: {
-                src: '<%= yeoman.app %>/scripts/app.jsx',
-                dest:'.tmp/scripts/app.js'
-            },
         },
     });
 
@@ -192,11 +187,12 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
+        'clean',
         'jasmine'
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
+        'clean',
         'useminPrepare',
         'imagemin',
         //'htmlmin',
