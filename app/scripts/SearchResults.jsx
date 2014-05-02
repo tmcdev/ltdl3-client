@@ -45,9 +45,24 @@ var React = require('react');
                 } else {
                     renderedRange = <div>No results found.</div>;
                 }
-                renderedResults = <ol className="ltdl-search-results">
+                renderedResults = <ol className="list-unstyled">
                                     {docs.map(function (doc) {
-                                        return <li key={doc.id}><a href="#">{doc.ti}</a></li>;
+                                        return <li key={doc.id}>
+                                            <div className="pull-right checkbox">
+                                                <label>
+                                                    <input type="checkbox"> Bookmark</input>
+                                                </label>
+                                            </div>
+                                            <a href="#">{doc.ti}</a>
+                                            <dl className="dl-horizontal">
+                                                <dt>Document date</dt><dd>{doc.dd || 'Unknown'}</dd>
+                                                <dt>Document type</dt><dd>{doc.dt || 'Unknown'}</dd>
+                                                <dt>Bates number</dt><dd>{doc.bn || 'Unknown'}</dd>
+                                                <dt>Source</dt><dd>{doc.source || 'Unknown'}</dd>
+                                                <dt>Pages</dt><dd>{doc.pg || 'Unknown'}</dd>
+
+                                            </dl>
+                                        </li>;
                                     }.bind(this))}
                                 </ol>;
             }
