@@ -45,7 +45,6 @@ var React = require('react');
                 } else {
                     renderedRange = <div>No results found.</div>;
                 }
-                console.dir(docs);
                 renderedResults = <ol className="list-unstyled">
                                     {docs.map(function (doc) {
                                         return <li key={doc.id}>
@@ -55,6 +54,14 @@ var React = require('react');
                                                 </label>
                                             </div>
                                             <a href="#">{doc.ti}</a>
+                                            <dl className="dl-horizontal">
+                                                <dt>Document date</dt><dd>{doc.dd || 'Unknown'}</dd>
+                                                <dt>Document type</dt><dd>{doc.dt || 'Unknown'}</dd>
+                                                <dt>Bates number</dt><dd>{doc.bn || 'Unknown'}</dd>
+                                                <dt>Source</dt><dd>{doc.source || 'Unknown'}</dd>
+                                                <dt>Pages</dt><dd>{doc.pg || 'Unknown'}</dd>
+
+                                            </dl>
                                         </li>;
                                     }.bind(this))}
                                 </ol>;
