@@ -46,7 +46,7 @@ var React = require('react');
                     renderedRange = <div>No results found.</div>;
                 }
                 console.dir(docs);
-                renderedResults = <ol className="ltdl-search-results">
+                renderedResults = <ol className="list-unstyled">
                                     {docs.map(function (doc) {
                                         return <li key={doc.id}>
                                             <div className="pull-right checkbox">
