@@ -100,13 +100,12 @@ module.exports = function (grunt) {
                 'test/spec/**/*.js'
             ]
         },
-        mocha: {
+        jasmine: {
             all: {
                 options: {
-                    run: true,
-                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
+                    specs: 'test/spec/*.js',
                 }
-            }
+            },
         },
 
         useminPrepare: {
@@ -207,7 +206,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'clean:server',
         'connect:test',
-        'mocha'
+        'jasmine'
     ]);
 
     grunt.registerTask('build', [
