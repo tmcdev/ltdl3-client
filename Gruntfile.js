@@ -82,10 +82,8 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             },
             all: [
-                '<%= paths.app %>/scripts/**/*.js',
-                '!<%= paths.app %>/scripts/vendor/*',
-                'test/spec/**/*.js'
-            ]
+                'Gruntfile.js',
+            ],
         },
         jasmine: {
             all: {
@@ -177,6 +175,12 @@ module.exports = function (grunt) {
                 dest: '.tmp/test.js',
             },
         },
+        'gh-pages': {
+            options: {
+                base: 'dist'
+            },
+            src: ['**']
+        }
     });
 
     grunt.registerTask('serve', function () {
@@ -206,6 +210,12 @@ module.exports = function (grunt) {
         'browserify:dist',
         'copy',
         'usemin'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'clean',
+        'build',
+        'gh-pages'
     ]);
 
     grunt.registerTask('default', [
