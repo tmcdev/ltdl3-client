@@ -27,7 +27,8 @@
     "envify": "~1.2.1",
     "react": "~0.10.0",
     "grunt-contrib-jasmine": "~0.6.4",
-    "grunt-gh-pages": "~0.9.1"
+    "grunt-gh-pages": "~0.9.1",
+    "browserify": "~3.46.0"
   },
   "engines": {
     "node": ">=0.8.0"
