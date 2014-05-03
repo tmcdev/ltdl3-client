@@ -164,10 +164,10 @@ module.exports = function (grunt) {
         },
         browserify: {
             options: {
-                transform:  [ require('grunt-react').browserify ]
+                transform:  [ require('grunt-react').browserify ],
             },
             dist: {
-                src: '<%= paths.app %>/scripts/*.jsx',
+                src: '<%= paths.app %>/scripts/app.jsx',
                 dest:'<%= paths.dist %>/scripts/app.js'
             },
             test: {
