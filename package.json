@@ -36,6 +36,6 @@
     "grunt-bower-task": "~0.3.4"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   }
 }
