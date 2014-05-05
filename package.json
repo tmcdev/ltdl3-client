@@ -31,7 +31,8 @@
     "react": "~0.10.0",
     "grunt-contrib-jasmine": "~0.6.4",
     "grunt-gh-pages": "~0.9.1",
-    "browserify": "~3.46.0"
+    "browserify": "~3.46.0",
+    "optipng-bin": "~0.3.3"
   },
   "engines": {
     "node": ">=0.8.0"
