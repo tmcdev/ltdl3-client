@@ -1,6 +1,9 @@
 {
   "name": "ltdl3-client",
   "version": "0.0.0",
+  "scripts": {
+    "test": "grunt test"
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -28,9 +31,11 @@
     "react": "~0.10.0",
     "grunt-contrib-jasmine": "~0.6.4",
     "grunt-gh-pages": "~0.9.1",
-    "browserify": "~3.46.0"
+    "browserify": "~3.46.0",
+    "optipng-bin": "~0.3.3",
+    "grunt-bower-task": "~0.3.4"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   }
 }

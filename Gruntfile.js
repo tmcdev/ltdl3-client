@@ -74,7 +74,12 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            all: ['.tmp', '<%= paths.dist %>/*'],
+            all: ['.tmp', '<%= paths.dist %>/*', '<%= paths.app %>/bower_components'],
+        },
+        bower: {
+            install: {
+                // Nothing to specify here. Look in bower.json for settings.
+            },
         },
         jshint: {
             options: {
@@ -201,6 +206,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean',
+        'bower',
         'useminPrepare',
         'imagemin',
         //'htmlmin',
@@ -213,14 +219,13 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('deploy', [
-        'clean',
         'build',
         'gh-pages'
     ]);
 
     grunt.registerTask('default', [
         'jshint',
-        // 'test'
-        'build'
+        'test',
+        'build',
     ]);
 };
