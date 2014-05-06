@@ -20,7 +20,7 @@ var Footer = require('./Footer.jsx');
             return (
                 <div className="container">
                     <GithubRibbon/>
-                    <h1 className="h2"/* add h2 class to h1 tag; edit header text */>Search the Legacy Tobacco Documents</h1>
+                    <h1 className="h2">Search the Legacy Tobacco Documents</h1>
                     <SearchBuilder showResults={this.showResults} url="http://solr1.mooo.com:8983/solr/ltdl3test/select"/>
                     <SearchResults ref="results"/>
                     <Footer/>
