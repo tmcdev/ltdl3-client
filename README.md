@@ -3,6 +3,8 @@ ltdl3-client
 
 Install dependencies:
 
+Install [Node.js](http://www.nodejs.org/). This will install `npm` as well.
+
 ````
 npm install -g grunt-cli
 npm install
