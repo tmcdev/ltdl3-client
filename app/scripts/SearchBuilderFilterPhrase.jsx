@@ -26,7 +26,7 @@ var React = require('react');
                 {key: 'choice1', label: 'for all of the words'},
                 {key: 'choice2', label: 'for the exact phrase'}
             ];
-            if (this.props.index > 0) {
+            if (this.props.showExcludes) {
                 choices.push(
                     {key: 'choice3', label: 'excluding the words'},
                     {key:'choice4', label: 'excluding the phrase'})
