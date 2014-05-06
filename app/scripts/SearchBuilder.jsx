@@ -2,10 +2,13 @@
  * @jsx React.DOM
  */
 var React = require('react');
+var solr = require('solr-client');
 var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
 
 (function () {
     'use strict';
+
+    var client = solr.createClient('solr1.mooo.com', 8983, '', '/solr/ltdl3test/select');
     var queryExpressions = [];
 
     var getQueryString = function () {
@@ -38,15 +41,27 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         },
         handleSubmit: function () {
             this.props.showResults({loading: true, data: {}});
-            $.ajax({
-                url: this.props.url,
-                type: 'GET',
-                data: {q: getQueryString(), wt: 'json'},
-                dataType: 'json',
-                success: function(data) {
-                    this.props.showResults({loading: false, data: data});
-                }.bind(this)
+            var query = client.createQuery()
+                .q(getQueryString())
+                .start(0)
+                .rows(10);
+            client.search(query, function(err,obj) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(obj);
+               
+                }
             });
+            // $.ajax({
+            //     url: this.props.url,
+            //     type: 'GET',
+            //     data: {q: getQueryString(), wt: 'json'},
+            //     dataType: 'json',
+            //     success: function(data) {
+            //         this.props.showResults({loading: false, data: data});
+            //     }.bind(this)
+            // });
             return false;
         },
         getInitialState: function () {

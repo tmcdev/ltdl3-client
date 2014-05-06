@@ -33,7 +33,8 @@
     "grunt-gh-pages": "~0.9.1",
     "browserify": "~3.46.0",
     "optipng-bin": "~0.3.3",
-    "grunt-bower-task": "~0.3.4"
+    "grunt-bower-task": "~0.3.4",
+    "solr-client": "~0.2.9"
   },
   "engines": {
     "node": ">=0.10.0"
