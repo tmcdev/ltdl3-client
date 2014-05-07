@@ -6,6 +6,8 @@ var React = require('react');
 (function () {
     'use strict';
 
+    var code = "er";
+
     module.exports = React.createClass({
         getInitialState: function () {
             var rv = {};
@@ -13,12 +15,18 @@ var React = require('react');
         },
         handleClickType: function (event) {
             this.setState({filterType: event.target.getAttribute('data-type')});
+            code = event.target.getAttribute('data-code');
+            this.props.setTextBox();
             this.props.focusTextBox();
         },
         handleClickValue: function (event) {
-            this.props.setTextBox(event.target.getAttribute('data-text-value'));
+            code = event.target.getAttribute('data-code');
+            this.props.setTextBox({value: event.target.getAttribute('data-text-value')});
             this.props.disablePhraseFilter();
             this.handleClickType(event);
+        },
+        getCode: function () {
+            return code;
         },
         render: function() {
             return (

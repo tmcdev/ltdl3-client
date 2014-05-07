@@ -12,7 +12,10 @@ var React = require('react');
         },
         handleChange: function (event) {
             this.props.enablePhraseFilter();
-            this.props.setTextBoxValue(event.target.value);
+            this.props.setTextBoxValue({
+                code: event.target.getAttribute('data-code'),
+                value: event.target.value
+            });
         },
         getInitialState: function () {
             return { value: '' };
