@@ -29,10 +29,25 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         },
         remove: function (index) {
             var components = this.state.components;
+            // If deleting the first component, turn off excludes for the new first component
+            if (!components[index].showExcludes) {
+                var firstIndex = index+1;
+                while (!components[firstIndex]) {
+                    components++;
+                }
+                var first = components[firstIndex];
+                components[firstIndex] =
+                    <SearchBuilderComponent
+                        value = {first.props.value}
+                        key={first.props.key}
+                        showExcludes={false}
+                        add={first.props.add}
+                        remove={first.props.remove}
+                        setQueryExpression={first.props.setQueryExpression}
+                    />;
+            }
             delete(components[index]);
-            // TODO: find first component and set showExcludes to true
             // TODO: If deleting first component, check value of next component phrase to make sure it's not an exclude
-            // TODO: tests for the above
             this.setState({
                 components: components
             });
@@ -55,14 +70,16 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         },
         getInitialState: function () {
             return {
-                components: [<SearchBuilderComponent
-                    value=""
-                    key="comp0"
-                    index={0}
-                    showExcludes={false}
-                    add={this.add}
-                    remove={this.remove}
-                    setQueryExpression={this.setQueryExpression}/>]
+                components: [
+                    <SearchBuilderComponent
+                        value=""
+                        key="comp0"
+                        index={0}
+                        showExcludes={false}
+                        add={this.add}
+                        remove={this.remove}
+                        setQueryExpression={this.setQueryExpression}
+                    />]
             }
         },
         render: function() {
