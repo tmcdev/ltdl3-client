@@ -30,16 +30,17 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         remove: function (index) {
             var components = this.state.components;
             // If deleting the first component, turn off excludes for the new first component
-            if (!components[index].showExcludes) {
+            if (!components[index].props.showExcludes) {
                 var firstIndex = index+1;
                 while (!components[firstIndex]) {
-                    components++;
+                    firstIndex++;
                 }
                 var first = components[firstIndex];
                 components[firstIndex] =
                     <SearchBuilderComponent
                         value = {first.props.value}
                         key={first.props.key}
+                        index={first.props.index}
                         showExcludes={false}
                         add={first.props.add}
                         remove={first.props.remove}
