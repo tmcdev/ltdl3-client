@@ -27,7 +27,6 @@ var React = require('react');
                         {this.state.filterType} <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu" role="menu">
-                        {renderedDropdown}
                         <li><a data-code="er" data-type="Everywhere" onClick={this.handleClickType} href="#">Everywhere</a></li>
                         <li><a data-code="ti" data-type="Title" onClick={this.handleClickType} href="#">Title</a></li>
                         <li><a data-code="per" data-type="Person" onClick={this.handleClickType} href="#">Person</a></li>
