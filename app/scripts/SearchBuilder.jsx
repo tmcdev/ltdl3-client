@@ -19,6 +19,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 value=""
                 key={"comp"+(index+1)}
                 index={index+1}
+                showExcludes={true}
                 add={this.add}
                 remove={this.remove}
                 setQueryExpression={this.setQueryExpression}/>);
@@ -29,6 +30,9 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
         remove: function (index) {
             var components = this.state.components;
             delete(components[index]);
+            // TODO: find first component and set showExcludes to true
+            // TODO: If deleting first component, check value of next component phrase to make sure it's not an exclude
+            // TODO: tests for the above
             this.setState({
                 components: components
             });
@@ -55,6 +59,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                     value=""
                     key="comp0"
                     index={0}
+                    showExcludes={false}
                     add={this.add}
                     remove={this.remove}
                     setQueryExpression={this.setQueryExpression}/>]

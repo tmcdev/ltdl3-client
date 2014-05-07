@@ -29,14 +29,14 @@ var ReactTestUtils = React.addons.TestUtils;
 
             it('should render 3 choices if showExcludes is not requested', function () {
                 var restrictor = ReactTestUtils.renderIntoDocument(
-                    <SearchBuilderFilterPhrase/>
+                    <SearchBuilderFilterPhrase showExcludes={false}/>
                 );
                 expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(3);
             });
 
             it('should render 5 choices if showExcludes is requested', function() {
                 var restrictor = ReactTestUtils.renderIntoDocument(
-                    <SearchBuilderFilterPhrase showExcludes="true"/>
+                    <SearchBuilderFilterPhrase showExcludes={true}/>
                 );
                 expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(5);
             });
