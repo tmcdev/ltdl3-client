@@ -48,7 +48,6 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                     />;
             }
             delete(components[index]);
-            // TODO: If deleting first component, check value of next component phrase to make sure it's not an exclude
             this.setState({
                 components: components
             });
