@@ -8,17 +8,18 @@ var ReactTestUtils = React.addons.TestUtils;
 
 (function () {
     describe('query', function () {
+        var query = require('../../app/scripts/query');
         it('should expose getQueryString', function () {
-            var query = require('../../app/scripts/query');
             expect(query.getQueryString).toEqual(jasmine.any(Function));
         });
         it('should expose setQueryExpression', function () {
-            var query = require('../../app/scripts/query');
             expect(query.setQueryExpression).toEqual(jasmine.any(Function));
         });
         it('should expose setField', function () {
-            var query = require('../../app/scripts/query');
             expect(query.setField).toEqual(jasmine.any(Function));
+        });
+        it('should expose enumGlueTypes', function () {
+            expect(query.enumGlueTypes).toEqual(jasmine.any(Object));
         });
 
         describe('getQueryString()', function () {
@@ -32,7 +33,25 @@ var ReactTestUtils = React.addons.TestUtils;
             it('should insert a query expression', function () {
                 var query = require('../../app/scripts/query');
                 query.setQueryExpression('foo','er',1);
-                expect(query.getQueryString()).toBe('er:foo');
+                expect(query.getQueryString()).toBe('(er:foo)');
+            });
+
+            it('should use OR by default', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo bar', 'er', 1);
+                expect(query.getQueryString()).toBe('(er:foo OR er:bar)');
+            });
+
+            it('should use OR if specified', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo bar', 'er', 1,{glueType: query.enumGlueTypes.or});
+                expect(query.getQueryString()).toBe('(er:foo OR er:bar)');
+            });
+
+            it('should use AND if specified', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.and});
+                expect(query.getQueryString()).toBe('(er:foo AND er:bar)');
             });
         });
 
@@ -41,9 +60,9 @@ var ReactTestUtils = React.addons.TestUtils;
                 var query = require('../../app/scripts/query');
                 query.setQueryExpression('foo','er',1);
                 query.setField('ti',1);
-                expect(query.getQueryString()).toBe('ti:foo');
+                expect(query.getQueryString()).toBe('(ti:foo)');
             });
-        })
+        });
     });
 
     describe('React.addons', function () {

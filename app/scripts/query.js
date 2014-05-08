@@ -2,10 +2,48 @@
     'use strict';
     var queryExpressions = [];
 
-    module.exports.setQueryExpression = function (term, field, index) {
+    var regexTerm = /([\w:]+)/g;
+    var regexNonTerm = /[^\w:]+/g;
+
+    var enumGlueTypes = {
+        or: 1,
+        and: 2,
+        phrase: 3,
+        not: 4,
+        notPhrase: 5
+    };
+
+    module.exports.enumGlueTypes = enumGlueTypes;
+
+    var glue = function (term, type, field) {
+        var rv;
+        switch (type) {
+        case enumGlueTypes.or:
+            rv = term.replace(regexTerm, field + ':$1');
+            rv = rv.replace(regexNonTerm, ' OR ');
+            break;
+        case enumGlueTypes.and:
+            rv = term.replace(regexTerm, field + ':$1');
+            rv = rv.replace(regexNonTerm, ' AND ');
+            break;
+        case enumGlueTypes.phrase:
+            break;
+        case enumGlueTypes.not:
+            break;
+        case enumGlueTypes.notPhrase:
+            break;
+        }
+
+        return rv;
+    };
+
+    module.exports.setQueryExpression = function (term, field, index, options) {
+        options = options || {};
+        options.glueType = options.glueType || this.enumGlueTypes.or;
         queryExpressions[index] = {
             term: term,
-            field: field
+            field: field,
+            glueType: options.glueType
         };
     };
 
@@ -13,10 +51,11 @@
         return queryExpressions.reduce(function(prev, cur) {
             var rv = prev;
             if (cur) {
+                var gluedTerm = glue(cur.term, cur.glueType, cur.field);
                 var joiner = prev.length ? ' ' : '';
-                rv += joiner + cur.field + ':' + cur.term;
+                rv += joiner + gluedTerm;
             }
-            return rv;
+            return '(' + rv + ')';
         }, '');
     };
 

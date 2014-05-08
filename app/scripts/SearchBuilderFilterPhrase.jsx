@@ -2,19 +2,20 @@
  * @jsx React.DOM
  */
 var React = require('react');
+var query = require('./query');
 
 (function () {
     'use strict';
 
     var choices = [
-        {key: 'choice0', label: 'for any of the words'},
-        {key: 'choice1', label: 'for all of the words'},
-        {key: 'choice2', label: 'for the exact phrase'}
+        {key: 'choice0', label: 'for any of the words'}, // er:foo OR er:bar
+        {key: 'choice1', label: 'for all of the words'}, // er:foo AND er:bar
+        {key: 'choice2', label: 'for the exact phrase'}  // er:"foo bar"
     ];
 
     var excludes = [
-        {key: 'choice3', label: 'excluding the words'},
-        {key: 'choice4', label: 'excluding the phrase'}
+        {key: 'choice3', label: 'excluding the words'}, // NOT er:foo AND NOT er:bar
+        {key: 'choice4', label: 'excluding the phrase'} // NOT er:"foo and bar"
     ];
 
     module.exports = React.createClass({
