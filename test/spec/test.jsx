@@ -68,8 +68,8 @@ var ReactTestUtils = React.addons.TestUtils;
 
             it('should use NOT phrase if specified', function () {
                 var query = require('../../app/scripts/query');
-                query.setQueryExpression('foo bar', 'ti', 1, {glueType: query.enumGlueTypes.notPhrase});
-                expect(query.getQueryString()).toBe('(!ti:"foo bar")');
+                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.notPhrase});
+                expect(query.getQueryString()).toBe('(!er:"foo bar")');
             })
         });
 
