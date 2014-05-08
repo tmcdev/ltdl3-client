@@ -27,6 +27,7 @@
             rv = rv.replace(regexNonTerm, ' AND ');
             break;
         case enumGlueTypes.phrase:
+            rv = field + ':"' + term + '"';
             break;
         case enumGlueTypes.not:
             break;

@@ -53,6 +53,12 @@ var ReactTestUtils = React.addons.TestUtils;
                 query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.and});
                 expect(query.getQueryString()).toBe('(er:foo AND er:bar)');
             });
+
+            it('should use phrase if specified', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.phrase});
+                expect(query.getQueryString()).toBe('(er:"foo bar")');
+            });
         });
 
         describe('setField()', function () {
