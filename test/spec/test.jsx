@@ -7,6 +7,45 @@ var React = require('react/addons');
 var ReactTestUtils = React.addons.TestUtils;
 
 (function () {
+    describe('query', function () {
+        it('should expose getQueryString', function () {
+            var query = require('../../app/scripts/query');
+            expect(query.getQueryString).toEqual(jasmine.any(Function));
+        });
+        it('should expose setQueryExpression', function () {
+            var query = require('../../app/scripts/query');
+            expect(query.setQueryExpression).toEqual(jasmine.any(Function));
+        });
+        it('should expose setField', function () {
+            var query = require('../../app/scripts/query');
+            expect(query.setField).toEqual(jasmine.any(Function));
+        });
+
+        describe('getQueryString()', function () {
+            it('should return an empty string initially', function () {
+                var query = require('../../app/scripts/query');
+                expect(query.getQueryString()).toBe('');
+            })
+        });
+
+        describe('setQueryExpression()', function () {
+            it('should insert a query expression', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo','er',1);
+                expect(query.getQueryString()).toBe('er:foo');
+            });
+        });
+
+        describe('setField()', function () {
+            it('should change the code without changing the term', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo','er',1);
+                query.setField('ti',1);
+                expect(query.getQueryString()).toBe('ti:foo');
+            });
+        })
+    });
+
     describe('React.addons', function () {
         it('should include TestUtils', function () {
             expect(ReactTestUtils).toEqual(jasmine.any(Object));

@@ -3,18 +3,10 @@
  */
 var React = require('react');
 var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
+var query = require('./query');
 
 (function () {
     'use strict';
-    var queryExpressions = [];
-
-    var getQueryString = function () {
-        var queries = queryExpressions.map(function(el) {
-            return el.code + ':' + el.value;
-        });
-        console.dir(queries);
-        return queries.join(' ');
-    };
 
     module.exports = React.createClass({
         add: function (index) {
@@ -26,7 +18,7 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 showExcludes={true}
                 add={this.add}
                 remove={this.remove}
-                setQueryExpression={this.setQueryExpression}/>);
+                setQueryExpression={query.setQueryExpression}/>);
             this.setState({
                 components: components
             });
@@ -56,19 +48,13 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 components: components
             });
         },
-        setQueryExpression: function (query, index) {
-            queryExpressions[index] = queryExpressions[index] || {};
-            if (typeof query.value === "string") {
-                queryExpressions[index].value = query.value;
-            }
-            queryExpressions[index].code = query.code;
-        },
+        setQueryExpression: query.setQueryExpression,
         handleSubmit: function () {
             this.props.showResults({loading: true, data: {}});
             $.ajax({
                 url: this.props.url,
                 type: 'GET',
-                data: {q: getQueryString(), wt: 'json'},
+                data: {q: query.getQueryString(), wt: 'json'},
                 dataType: 'json',
                 success: function(data) {
                     this.props.showResults({loading: false, data: data});
@@ -86,7 +72,8 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                         showExcludes={false}
                         add={this.add}
                         remove={this.remove}
-                        setQueryExpression={this.setQueryExpression}
+                        setQueryExpression={query.setQueryExpression}
+                        setQueryCode={query.setField}
                     />]
             }
         },
