@@ -2,8 +2,8 @@
     'use strict';
     var queryExpressions = [];
 
-    var regexTerm = /([\w:]+)/g;
-    var regexNonTerm = /[^\w:]+/g;
+    var regexTerm = /([\w:!]+)/g;
+    var regexNonTerm = /[^\w:!]+/g;
 
     var enumGlueTypes = {
         or: 1,
@@ -30,8 +30,11 @@
             rv = field + ':"' + term + '"';
             break;
         case enumGlueTypes.not:
+            rv = term.replace(regexTerm, '!' + field + ':$1');
+            rv = rv.replace(regexNonTerm, ' AND ');
             break;
         case enumGlueTypes.notPhrase:
+            rv = '!' + field + ':"' + term + '"';
             break;
         }
 
