@@ -9,7 +9,6 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
 
 (function () {
     'use strict';
-    var queryExpression = '';
 
     module.exports = React.createClass({
         focusTextBox: function () {
@@ -19,7 +18,12 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
             var code = this.refs.typeFilter.getCode();
             if (query) {
                 this.refs.textBox.setState({value: query.value});
-                this.props.setQueryExpression(query.value, code, this.props.index);
+                this.props.setQueryExpression(
+                    query.value,
+                    code,
+                    this.props.index,
+                    {glue: this.refs.phraseFilter.getGlue()}
+                );
             } else {
                 this.props.setQueryCode(code, this.props.index);
             }

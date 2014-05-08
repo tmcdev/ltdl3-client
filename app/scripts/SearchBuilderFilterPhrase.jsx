@@ -2,21 +2,22 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var query = require('./query');
 
 (function () {
     'use strict';
 
     var choices = [
-        {key: 'choice0', label: 'for any of the words'}, // er:foo OR er:bar
-        {key: 'choice1', label: 'for all of the words'}, // er:foo AND er:bar
-        {key: 'choice2', label: 'for the exact phrase'}  // er:"foo bar"
+        {key: 'choice0', glue: 'or', label: 'for any of the words'},
+        {key: 'choice1', glue: 'and', label: 'for all of the words'},
+        {key: 'choice2', glue: 'phrase', label: 'for the exact phrase'}
     ];
 
     var excludes = [
-        {key: 'choice3', label: 'excluding the words'}, // NOT er:foo AND NOT er:bar
-        {key: 'choice4', label: 'excluding the phrase'} // NOT er:"foo and bar"
+        {key: 'choice3', glue: 'not', label: 'excluding the words'},
+        {key: 'choice4', glue: 'notPhrase', label: 'excluding the phrase'}
     ];
+
+    var glue = choices[0].glue;
 
     module.exports = React.createClass({
         enable: function () {
@@ -25,19 +26,24 @@ var query = require('./query');
         disable: function () {
             this.refs.button.getDOMNode().setAttribute('disabled', 'disabled');
         },
+        getGlue: function () {
+            return glue;
+        },
         getInitialState: function () {
-            return {filterPhrase: "for any of the words"};
+            return {filterPhrase: choices[0].label};
         },
         componentDidUpdate: function () {
             if (!this.props.showExcludes) {
                 var excludesLabels = excludes.map(function (el) { return el.label });
                 if (excludesLabels.indexOf(this.state.filterPhrase) !== -1) {
                     this.setState({filterPhrase: choices[0].label});
+                    glue = choices[0].glue;
                 }
             }
         },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
+            glue = event.target.getAttribute('data-glue');
             this.props.focusTextBox();
         },
         render: function() {
@@ -46,7 +52,7 @@ var query = require('./query');
                 myChoices = myChoices.concat(excludes);
             }
             var renderedChoices = myChoices.map(function (choice) {
-                return <li key={choice.key}><a data-value={choice.label} onClick={this.handleClick} href="#">{choice.label}</a></li>;
+                return <li key={choice.key}><a data-value={choice.label} data-glue={choice.glue} onClick={this.handleClick} href="#">{choice.label}</a></li>;
             }.bind(this));
             return (
                 <div className="input-group-btn">

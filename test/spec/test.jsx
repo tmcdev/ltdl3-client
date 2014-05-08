@@ -6,6 +6,14 @@
 var React = require('react/addons');
 var ReactTestUtils = React.addons.TestUtils;
 
+var GithubRibbon = require('../../app/scripts/GithubRibbon.jsx');
+var SearchBuilder = require('../../app/scripts/SearchBuilder.jsx');
+var SearchBuilderComponent = require('../../app/scripts/SearchBuilderComponent.jsx');
+var SearchBuilderFilterType = require('../../app/scripts/SearchBuilderFilterType.jsx');
+var SearchBuilderFilterPhrase = require('../../app/scripts/SearchBuilderFilterPhrase.jsx');
+var SearchBuilderTextBox = require('../../app/scripts/SearchBuilderTextBox.jsx');
+var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
+
 (function () {
     describe('query', function () {
         var query = require('../../app/scripts/query');
@@ -91,7 +99,6 @@ var ReactTestUtils = React.addons.TestUtils;
 
     describe('LTDL3', function () {
         describe('GithubRibbon', function () {
-            var GithubRibbon = require('../../app/scripts/GithubRibbon.jsx');
 
             it('should render a link to the GitHub repo', function () {
                 var ribbon = ReactTestUtils.renderIntoDocument(
@@ -102,20 +109,30 @@ var ReactTestUtils = React.addons.TestUtils;
         });
 
         describe('SearchBuilder', function () {
-            var SearchBuilder = require('../../app/scripts/SearchBuilder.jsx');
 
             it('should contain a SearchBuilderFilterType', function () {
-                var SearchBuilderFilterType = require('../../app/scripts/SearchBuilderFilterType.jsx');
 
                 var builder = ReactTestUtils.renderIntoDocument(
                     <SearchBuilder/>
                 );
                 expect(ReactTestUtils.findRenderedComponentWithType(builder, SearchBuilderFilterType)).toBeTruthy();
             });
+        });
+
+        describe('SearchBuilderComponent', function () {
+
+            it('should render expected subcomponents', function () {
+                var component = ReactTestUtils.renderIntoDocument(
+                    <SearchBuilderComponent/>
+                );
+                expect(ReactTestUtils.findRenderedComponentWithType(component, SearchBuilderFilterType)).toBeTruthy();
+                expect(ReactTestUtils.findRenderedComponentWithType(component, SearchBuilderFilterPhrase)).toBeTruthy();
+                expect(ReactTestUtils.findRenderedComponentWithType(component, SearchBuilderTextBox)).toBeTruthy();
+                expect(ReactTestUtils.findRenderedComponentWithType(component, SearchBuilderAdd)).toBeTruthy();
+            });
         })
 
         describe('SearchBuilderFilterPhrase', function () {
-            var SearchBuilderFilterPhrase = require('../../app/scripts/SearchBuilderFilterPhrase.jsx');
 
             it('should render 3 choices if showExcludes is not requested', function () {
                 var restrictor = ReactTestUtils.renderIntoDocument(
@@ -124,11 +141,18 @@ var ReactTestUtils = React.addons.TestUtils;
                 expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(3);
             });
 
-            it('should render 5 choices if showExcludes is requested', function() {
+            it('should render 5 choices if showExcludes is requested', function () {
                 var restrictor = ReactTestUtils.renderIntoDocument(
                     <SearchBuilderFilterPhrase showExcludes={true}/>
                 );
                 expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(5);
+            });
+
+            it('should return "or" as the default glue', function () {
+                var restrictor = ReactTestUtils.renderIntoDocument(
+                    <SearchBuilderFilterPhrase showExcludes={true}/>
+                );
+                expect(restrictor.getGlue()).toBe('or');
             });
         })
     });
