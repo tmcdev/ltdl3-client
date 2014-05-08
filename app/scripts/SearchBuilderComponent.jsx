@@ -2,10 +2,10 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var searchBuilderFilterType = require('./searchBuilderFilterType.jsx');
-var searchBuilderFilterPhrase = require('./searchBuilderFilterPhrase.jsx');
-var searchBuilderTextBox = require('./searchBuilderTextBox.jsx');
-var searchBuilderAdd = require('./searchBuilderAdd.jsx');
+var searchBuilderFilterType = require('./SearchBuilderFilterType.jsx');
+var searchBuilderFilterPhrase = require('./SearchBuilderFilterPhrase.jsx');
+var searchBuilderTextBox = require('./SearchBuilderTextBox.jsx');
+var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
 
 (function () {
     'use strict';
