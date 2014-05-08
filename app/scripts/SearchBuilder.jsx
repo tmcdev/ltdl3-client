@@ -9,7 +9,11 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
     var queryExpressions = [];
 
     var getQueryString = function () {
-        return queryExpressions.join(' ');
+        var queries = queryExpressions.map(function(el) {
+            return el.code + ':' + el.value;
+        });
+        console.dir(queries);
+        return queries.join(' ');
     };
 
     module.exports = React.createClass({
@@ -52,8 +56,12 @@ var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
                 components: components
             });
         },
-        setQueryExpression: function (value, index) {
-            queryExpressions[index] = value;
+        setQueryExpression: function (query, index) {
+            queryExpressions[index] = queryExpressions[index] || {};
+            if (typeof query.value === "string") {
+                queryExpressions[index].value = query.value;
+            }
+            queryExpressions[index].code = query.code;
         },
         handleSubmit: function () {
             this.props.showResults({loading: true, data: {}});

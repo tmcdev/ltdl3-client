@@ -24,6 +24,20 @@ var ReactTestUtils = React.addons.TestUtils;
                 expect(ribbon.getDOMNode().getAttribute('href')).toBe('https://github.com/Trott/ltdl3-client');
             });
         });
+
+        describe('SearchBuilder', function () {
+            var SearchBuilder = require('../../app/scripts/SearchBuilder.jsx');
+
+            it('should contain a SearchBuilderFilterType', function () {
+                var SearchBuilderFilterType = require('../../app/scripts/SearchBuilderFilterType.jsx');
+
+                var builder = ReactTestUtils.renderIntoDocument(
+                    <SearchBuilder/>
+                );
+                expect(ReactTestUtils.findRenderedComponentWithType(builder, SearchBuilderFilterType)).toBeTruthy();
+            });
+        })
+
         describe('SearchBuilderFilterPhrase', function () {
             var SearchBuilderFilterPhrase = require('../../app/scripts/SearchBuilderFilterPhrase.jsx');
 
