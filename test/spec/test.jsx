@@ -16,6 +16,10 @@ var ReactTestUtils = React.addons.TestUtils;
             var query = require('../../app/scripts/query');
             expect(query.setQueryExpression).toEqual(jasmine.any(Function));
         });
+        it('should expose setField', function () {
+            var query = require('../../app/scripts/query');
+            expect(query.setField).toEqual(jasmine.any(Function));
+        });
 
         describe('getQueryString()', function () {
             it('should return an empty string initially', function () {
@@ -31,6 +35,15 @@ var ReactTestUtils = React.addons.TestUtils;
                 expect(query.getQueryString()).toBe('er:foo');
             });
         });
+
+        describe('setField()', function () {
+            it('should change the code without changing the term', function () {
+                var query = require('../../app/scripts/query');
+                query.setQueryExpression('foo','er',1);
+                query.setField('ti',1);
+                expect(query.getQueryString()).toBe('ti:foo');
+            });
+        })
     });
 
     describe('React.addons', function () {

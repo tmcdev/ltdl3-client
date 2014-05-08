@@ -19,9 +19,9 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
             var code = this.refs.typeFilter.getCode();
             if (query) {
                 this.refs.textBox.setState({value: query.value});
-                this.props.setQueryExpression({value: query.value, code: code}, this.props.index);
+                this.props.setQueryExpression(query.value, code, this.props.index);
             } else {
-                this.props.setQueryExpression({code: code}, this.props.index);
+                this.props.setQueryCode(code, this.props.index);
             }
         },
         disablePhraseFilter: function () {

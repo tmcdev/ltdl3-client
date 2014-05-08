@@ -19,4 +19,8 @@
             return rv;
         }, '');
     };
+
+    module.exports.setField = function (field, index) {
+        queryExpressions[index].field = field;
+    };
 }());
