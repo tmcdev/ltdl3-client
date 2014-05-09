@@ -18,17 +18,12 @@ var query = require('./query.js');
         {key: 'choice4', glue: query.enumGlueTypes.notPhrase, label: 'excluding the phrase'}
     ];
 
-    var glue = choices[0].glue;
-
     module.exports = React.createClass({
         enable: function () {
             this.refs.button.getDOMNode().removeAttribute('disabled');
         },
         disable: function () {
             this.refs.button.getDOMNode().setAttribute('disabled', 'disabled');
-        },
-        getGlue: function () {
-            return glue;
         },
         getInitialState: function () {
             return {filterPhrase: choices[0].label};
@@ -38,13 +33,13 @@ var query = require('./query.js');
                 var excludesLabels = excludes.map(function (el) { return el.label });
                 if (excludesLabels.indexOf(this.state.filterPhrase) !== -1) {
                     this.setState({filterPhrase: choices[0].label});
-                    glue = choices[0].glue;
+                    this.props.setQueryExpression(this.props.index, {glueType: choices[0].glue});
                 }
             }
         },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
-            glue = event.target.getAttribute('data-glue');
+            this.props.setQueryExpression(this.props.index,{glueType: event.target.getAttribute('data-glue')});
             this.props.focusTextBox();
         },
         render: function() {

@@ -50,6 +50,7 @@
         me.field = settings.field || me.field;
         me.glueType = settings.glueType || me.glueType;
 
+        console.dir(me);
         queryExpressions[index] = me;
     };
 

@@ -171,13 +171,6 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 );
                 expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(5);
             });
-
-            it('should return "or" as the default glue', function () {
-                var restrictor = ReactTestUtils.renderIntoDocument(
-                    <SearchBuilderFilterPhrase showExcludes={true}/>
-                );
-                expect(restrictor.getGlue()).toBe(query.enumGlueTypes.or);
-            });
         });
     });
 

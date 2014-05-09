@@ -20,8 +20,7 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                 this.refs.textBox.setState({value: term.value});
                 this.props.setQueryExpression(this.props.index, {
                     term: term.value,
-                    field: code,
-                    glueType: this.refs.phraseFilter.getGlue()
+                    field: code
                 });
             } else {
                 this.props.setQueryExpression(this.props.index, {field: code});
@@ -50,6 +49,7 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             ref="phraseFilter"
                             focusTextBox={this.focusTextBox}
                             showExcludes={this.props.showExcludes}
+                            setQueryExpression={this.props.setQueryExpression}
                         />
                         <searchBuilderTextBox setTextBoxValue={this.setTextBoxValue} enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
                         <searchBuilderAdd index={this.props.index} add={this.props.add} remove={this.props.remove}/>
