@@ -34,6 +34,9 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
         it('should expose resetQuery', function () {
             expect(query.resetQuery).toEqual(jasmine.any(Function));
         });
+        it('should expose deleteQueryExpression', function () {
+            expect(query.deleteQueryExpression).toEqual(jasmine.any(Function));
+        });
 
         describe('getQueryString()', function () {
             it('should return an empty string initially', function () {
@@ -128,6 +131,16 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.not});
                 query.setQueryExpression(2, {term: 'bar'});
                 expect(query.getQueryString()).toBe('(er:foo) AND NOT (er:bar)');
+            });
+        });
+
+        describe('deleteQueryExpression()', function () {
+            it('should remove a previously added query expression', function () {
+                query.resetQuery();
+                query.setQueryExpression(1, {term: 'foo'});
+                query.setQueryExpression(2, {term: 'bar'});
+                query.deleteQueryExpression(1);
+                expect(query.getQueryString()).toBe('(er:bar)');
             });
         });
     });

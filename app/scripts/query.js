@@ -55,6 +55,11 @@
         queryExpressions[index] = me;
     };
 
+    module.exports.deleteQueryExpression = function (index) {
+        delete queryExpressions[index];
+    };
+
+
     module.exports.getQueryString = function () {
         var prevJoiner;
         return queryExpressions.reduce(function(prev, cur) {
