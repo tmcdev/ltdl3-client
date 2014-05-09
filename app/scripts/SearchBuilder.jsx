@@ -48,7 +48,6 @@ var query = require('./query');
                 components: components
             });
         },
-        setQueryExpression: query.setQueryExpression,
         handleSubmit: function () {
             this.props.showResults({loading: true, data: {}});
             $.ajax({
@@ -73,7 +72,6 @@ var query = require('./query');
                         add={this.add}
                         remove={this.remove}
                         setQueryExpression={query.setQueryExpression}
-                        setQueryCode={query.setField}
                     />]
             }
         },

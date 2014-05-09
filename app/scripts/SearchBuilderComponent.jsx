@@ -9,19 +9,21 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
 
 (function () {
     'use strict';
-    var queryExpression = '';
 
     module.exports = React.createClass({
         focusTextBox: function () {
             this.refs.textBox.focus();
         },
-        setTextBoxValue: function (query) {
+        setTextBoxValue: function (term) {
             var code = this.refs.typeFilter.getCode();
-            if (query) {
-                this.refs.textBox.setState({value: query.value});
-                this.props.setQueryExpression(query.value, code, this.props.index);
+            if (term) {
+                this.refs.textBox.setState({value: term.value});
+                this.props.setQueryExpression(this.props.index, {
+                    term: term.value,
+                    field: code
+                });
             } else {
-                this.props.setQueryCode(code, this.props.index);
+                this.props.setQueryExpression(this.props.index, {field: code});
             }
         },
         disablePhraseFilter: function () {
@@ -47,6 +49,8 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             ref="phraseFilter"
                             focusTextBox={this.focusTextBox}
                             showExcludes={this.props.showExcludes}
+                            index={this.props.index}
+                            setQueryExpression={this.props.setQueryExpression}
                         />
                         <searchBuilderTextBox setTextBoxValue={this.setTextBoxValue} enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
                         <searchBuilderAdd index={this.props.index} add={this.props.add} remove={this.props.remove}/>
