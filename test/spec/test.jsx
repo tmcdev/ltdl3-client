@@ -159,8 +159,6 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 );
                 expect(function(){component.setTextBoxValue();}).not.toThrow();
             });
-
-            it('should ')
         });
 
         describe('SearchBuilderFilterPhrase', function () {
