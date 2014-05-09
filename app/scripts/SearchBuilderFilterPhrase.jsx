@@ -39,7 +39,7 @@ var query = require('./query.js');
         },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
-            this.props.setQueryExpression(this.props.index,{glueType: event.target.getAttribute('data-glue')});
+            this.props.setQueryExpression(this.props.index, {glueType: event.target.getAttribute('data-glue')});
             this.props.focusTextBox();
         },
         render: function() {

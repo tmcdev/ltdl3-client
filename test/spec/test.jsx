@@ -93,6 +93,13 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 query.resetQuery();
                 query.setQueryExpression(1, {field: 'ti'});
                 expect(query.getQueryString()).toBe('(ti:*)');
+            });
+
+            it('should modify glueType only if that is all that is sent', function () {
+                query.resetQuery();
+                query.setQueryExpression(1, {field: 'ti'});
+                query.setQueryExpression(1, {glueType: query.enumGlueTypes.phrase});
+                expect(query.getQueryString()).toBe('(ti:"*")')
             })
         });
     });
