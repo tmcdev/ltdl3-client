@@ -2,19 +2,20 @@
  * @jsx React.DOM
  */
 var React = require('react');
+var query = require('./query.js');
 
 (function () {
     'use strict';
 
     var choices = [
-        {key: 'choice0', glue: 'or', label: 'for any of the words'},
-        {key: 'choice1', glue: 'and', label: 'for all of the words'},
-        {key: 'choice2', glue: 'phrase', label: 'for the exact phrase'}
+        {key: 'choice0', glue: query.enumGlueTypes.or, label: 'for any of the words'},
+        {key: 'choice1', glue: query.enumGlueTypes.and, label: 'for all of the words'},
+        {key: 'choice2', glue: query.enumGlueTypes.phrase, label: 'for the exact phrase'}
     ];
 
     var excludes = [
-        {key: 'choice3', glue: 'not', label: 'excluding the words'},
-        {key: 'choice4', glue: 'notPhrase', label: 'excluding the phrase'}
+        {key: 'choice3', glue: query.enumGlueTypes.not, label: 'excluding the words'},
+        {key: 'choice4', glue: query.enumGlueTypes.notPhrase, label: 'excluding the phrase'}
     ];
 
     var glue = choices[0].glue;

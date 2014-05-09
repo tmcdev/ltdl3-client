@@ -171,7 +171,7 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 var restrictor = ReactTestUtils.renderIntoDocument(
                     <SearchBuilderFilterPhrase showExcludes={true}/>
                 );
-                expect(restrictor.getGlue()).toBe('or');
+                expect(restrictor.getGlue()).toBe(query.enumGlueTypes.or);
             });
         });
     });

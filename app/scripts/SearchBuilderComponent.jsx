@@ -14,15 +14,15 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
         focusTextBox: function () {
             this.refs.textBox.focus();
         },
-        setTextBoxValue: function (query) {
+        setTextBoxValue: function (term) {
             var code = this.refs.typeFilter.getCode();
-            if (query) {
-                this.refs.textBox.setState({value: query.value});
+            if (term) {
+                this.refs.textBox.setState({value: term.value});
                 this.props.setQueryExpression(
-                    query.value,
+                    term.value,
                     code,
                     this.props.index,
-                    {glue: this.refs.phraseFilter.getGlue()}
+                    {glueType: this.refs.phraseFilter.getGlue()}
                 );
             } else {
                 this.props.setQueryCode(code, this.props.index);
