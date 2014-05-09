@@ -72,7 +72,6 @@ var query = require('./query');
                         add={this.add}
                         remove={this.remove}
                         setQueryExpression={query.setQueryExpression}
-                        setQueryCode={query.setField}
                     />]
             }
         },

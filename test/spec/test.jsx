@@ -18,14 +18,15 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
 
 (function () {
     describe('query', function () {
+        beforeEach(function() {
+            query.resetQuery();
+        });
+
         it('should expose getQueryString', function () {
             expect(query.getQueryString).toEqual(jasmine.any(Function));
         });
         it('should expose setQueryExpression', function () {
             expect(query.setQueryExpression).toEqual(jasmine.any(Function));
-        });
-        it('should expose setField', function () {
-            expect(query.setField).toEqual(jasmine.any(Function));
         });
         it('should expose enumGlueTypes', function () {
             expect(query.enumGlueTypes).toEqual(jasmine.any(Object));
@@ -37,58 +38,61 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
         describe('getQueryString()', function () {
             it('should return an empty string initially', function () {
                 expect(query.getQueryString()).toBe('');
-            })
+            });
+
+            it('should handle settings that are not defaults', function () {
+                var settings = {term: 'foo bar', field: 'ti', glueType: query.enumGlueTypes.phrase};
+                query.setQueryExpression(4, settings);
+                expect(query.getQueryString()).toBe('(ti:"foo bar")');
+            });
         });
 
         describe('setQueryExpression()', function () {
             it('should insert a query expression', function () {
-                query.setQueryExpression('foo', 'er', 1);
+                query.setQueryExpression(1, {term: 'foo', field: 'er'});
                 expect(query.getQueryString()).toBe('(er:foo)');
             });
 
             it('should use OR by default', function () {
-                query.setQueryExpression('foo bar', 'er', 1);
+                query.setQueryExpression(1, {term: 'foo bar', field: 'er'});
                 expect(query.getQueryString()).toBe('(er:foo OR er:bar)');
             });
 
             it('should use OR if specified', function () {
-                query.setQueryExpression('foo bar', 'er', 1,{glueType: query.enumGlueTypes.or});
+                query.setQueryExpression(1, {term: 'foo bar', field: 'er', glueType: query.enumGlueTypes.or});
                 expect(query.getQueryString()).toBe('(er:foo OR er:bar)');
             });
 
             it('should use AND if specified', function () {
-                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.and});
+                query.setQueryExpression(1, {term: 'foo bar', field: 'er', glueType: query.enumGlueTypes.and});
                 expect(query.getQueryString()).toBe('(er:foo AND er:bar)');
             });
 
             it('should use phrase if specified', function () {
-                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.phrase});
+                query.setQueryExpression(1, {term: 'foo bar', field: 'er', glueType: query.enumGlueTypes.phrase});
                 expect(query.getQueryString()).toBe('(er:"foo bar")');
             });
 
             it('should use NOT if specified', function () {
-                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.not});
+                query.setQueryExpression(1, {term: 'foo bar', field: 'er', glueType: query.enumGlueTypes.not});
                 expect(query.getQueryString()).toBe('(!er:foo AND !er:bar)');
             })
 
             it('should use NOT phrase if specified', function () {
-                query.setQueryExpression('foo bar', 'er', 1, {glueType: query.enumGlueTypes.notPhrase});
+                query.setQueryExpression(1, {term: 'foo bar', field: 'er', glueType: query.enumGlueTypes.notPhrase});
                 expect(query.getQueryString()).toBe('(!er:"foo bar")');
             })
-        });
 
-        describe('setField()', function () {
-            it('should change the code without changing the term', function () {
-                query.setQueryExpression('foo', 'er', 1);
-                query.setField('ti', 1);
+            it('should be able to change the code without changing the term', function () {
+                query.setQueryExpression(1, {term: 'foo', field: 'er'});
+                query.setQueryExpression(1, {field: 'ti'});
                 expect(query.getQueryString()).toBe('(ti:foo)');
             });
 
-            it('should create a query expression if one does not exist at provided index', function () {
+            it('should create a query expression with wildcard term if term not provided', function () {
                 query.resetQuery();
-                query.setField('ti', 1);
-                query.setQueryExpression('foo', 'ti', 1)
-                expect(query.getQueryString()).toBe('(ti:foo)');
+                query.setQueryExpression(1, {field: 'ti'});
+                expect(query.getQueryString()).toBe('(ti:*)');
             })
         });
     });
@@ -143,12 +147,13 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                         add={this.add}
                         remove={this.remove}
                         setQueryExpression={query.setQueryExpression}
-                        setQueryCode={query.setField}
                     />
 
                 );
                 expect(function(){component.setTextBoxValue();}).not.toThrow();
             });
+
+            it('should ')
         });
 
         describe('SearchBuilderFilterPhrase', function () {

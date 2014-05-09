@@ -2,8 +2,8 @@
     'use strict';
     var queryExpressions = [];
 
-    var regexTerm = /([\w:!]+)/g;
-    var regexNonTerm = /[^\w:!]+/g;
+    var regexTerm = /([\w:!\*]+)/g;
+    var regexNonTerm = /[^\w:!\*]+/g;
 
     var glue = function (term, type, field) {
         var rv;
@@ -41,14 +41,16 @@
 
     module.exports.enumGlueTypes = enumGlueTypes;
 
-    module.exports.setQueryExpression = function (term, field, index, options) {
-        options = options || {};
-        options.glueType = options.glueType || enumGlueTypes.or;
-        queryExpressions[index] = {
-            term: term,
-            field: field,
-            glueType: options.glueType
-        };
+    module.exports.setQueryExpression = function (index, settings) {
+        var defaults = { term: '*', field: 'er', glueType: enumGlueTypes.or };
+        settings = settings || defaults;
+        var me = queryExpressions[index] || defaults;
+
+        me.term = settings.term || me.term;
+        me.field = settings.field || me.field;
+        me.glueType = settings.glueType || me.glueType;
+
+        queryExpressions[index] = me;
     };
 
     module.exports.getQueryString = function () {
@@ -61,13 +63,6 @@
             }
             return '(' + rv + ')';
         }, '');
-    };
-
-    module.exports.setField = function (field, index) {
-        if (! queryExpressions[index]) {
-            this.setQueryExpression('', field, index);
-        }
-        queryExpressions[index].field = field;
     };
 
     module.exports.resetQuery = function () {

@@ -18,14 +18,13 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
             var code = this.refs.typeFilter.getCode();
             if (term) {
                 this.refs.textBox.setState({value: term.value});
-                this.props.setQueryExpression(
-                    term.value,
-                    code,
-                    this.props.index,
-                    {glueType: this.refs.phraseFilter.getGlue()}
-                );
+                this.props.setQueryExpression(this.props.index, {
+                    term: term.value,
+                    field: code,
+                    glueType: this.refs.phraseFilter.getGlue()
+                });
             } else {
-                this.props.setQueryCode(code, this.props.index);
+                this.props.setQueryExpression(this.props.index, {field: code});
             }
         },
         disablePhraseFilter: function () {
