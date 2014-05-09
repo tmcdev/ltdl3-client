@@ -5,16 +5,6 @@
     var regexTerm = /([\w:!]+)/g;
     var regexNonTerm = /[^\w:!]+/g;
 
-    var enumGlueTypes = {
-        or: 1,
-        and: 2,
-        phrase: 3,
-        not: 4,
-        notPhrase: 5
-    };
-
-    module.exports.enumGlueTypes = enumGlueTypes;
-
     var glue = function (term, type, field) {
         var rv;
         switch (type) {
@@ -41,6 +31,16 @@
         return rv;
     };
 
+    var enumGlueTypes = {
+        or: 1,
+        and: 2,
+        phrase: 3,
+        not: 4,
+        notPhrase: 5
+    };
+
+    module.exports.enumGlueTypes = enumGlueTypes;
+
     module.exports.setQueryExpression = function (term, field, index, options) {
         options = options || {};
         options.glueType = options.glueType || this.enumGlueTypes.or;
@@ -64,6 +64,13 @@
     };
 
     module.exports.setField = function (field, index) {
+        if (! queryExpressions[index]) {
+            this.setQueryExpression('', field, index);
+        }
         queryExpressions[index].field = field;
+    };
+
+    module.exports.resetQuery = function () {
+        queryExpressions = [];
     };
 }());
