@@ -44,7 +44,6 @@
     module.exports.setQueryExpression = function (term, field, index, options) {
         options = options || {};
         options.glueType = options.glueType || enumGlueTypes.or;
-        console.dir(options);
         queryExpressions[index] = {
             term: term,
             field: field,
