@@ -100,7 +100,35 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 query.setQueryExpression(1, {field: 'ti'});
                 query.setQueryExpression(1, {glueType: query.enumGlueTypes.phrase});
                 expect(query.getQueryString()).toBe('(ti:"*")')
-            })
+            });
+
+            it('should join multiple expressions with OR by default', function () {
+                query.resetQuery();
+                query.setQueryExpression(1, {term: 'foo'});
+                query.setQueryExpression(2, {term: 'bar'});
+                expect(query.getQueryString()).toBe('(er:foo) OR (er:bar)');
+            });
+
+            it('should join multiple expressions with OR if specified', function () {
+                query.resetQuery();
+                query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.or});
+                query.setQueryExpression(2, {term: 'bar'});
+                expect(query.getQueryString()).toBe('(er:foo) OR (er:bar)');
+            });
+
+            it('should join multiple expressions with AND if specified', function () {
+                query.resetQuery();
+                query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.and});
+                query.setQueryExpression(2, {term: 'bar'});
+                expect(query.getQueryString()).toBe('(er:foo) AND (er:bar)');
+            });
+
+            it('should join multiple expressions with NOT if specified', function () {
+                query.resetQuery();
+                query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.not});
+                query.setQueryExpression(2, {term: 'bar'});
+                expect(query.getQueryString()).toBe('(er:foo) AND NOT (er:bar)');
+            });
         });
     });
 
