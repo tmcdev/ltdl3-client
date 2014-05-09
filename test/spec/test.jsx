@@ -42,7 +42,7 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
 
         describe('setQueryExpression()', function () {
             it('should insert a query expression', function () {
-                query.setQueryExpression('foo','er',1);
+                query.setQueryExpression('foo', 'er', 1);
                 expect(query.getQueryString()).toBe('(er:foo)');
             });
 
@@ -132,7 +132,24 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 expect(ReactTestUtils.findRenderedComponentWithType(component, SearchBuilderTextBox)).toBeTruthy();
                 expect(ReactTestUtils.findRenderedComponentWithType(component, SearchBuilderAdd)).toBeTruthy();
             });
-        })
+
+            it('should have a setTextBoxValue() function that works with no passed parameters', function () {
+                var component = ReactTestUtils.renderIntoDocument(
+                    <SearchBuilderComponent
+                        value=""
+                        key="comp0"
+                        index={0}
+                        showExcludes={false}
+                        add={this.add}
+                        remove={this.remove}
+                        setQueryExpression={query.setQueryExpression}
+                        setQueryCode={query.setField}
+                    />
+
+                );
+                expect(function(){component.setTextBoxValue();}).not.toThrow();
+            });
+        });
 
         describe('SearchBuilderFilterPhrase', function () {
 
@@ -156,7 +173,7 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                 );
                 expect(restrictor.getGlue()).toBe('or');
             });
-        })
+        });
     });
 
 })();
