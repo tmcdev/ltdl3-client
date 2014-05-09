@@ -18,7 +18,8 @@ var query = require('./query');
                 showExcludes={true}
                 add={this.add}
                 remove={this.remove}
-                setQueryExpression={query.setQueryExpression}/>);
+                setQueryExpression={query.setQueryExpression}
+                deleteQueryExpression={query.deleteQueryExpression}/>);
             this.setState({
                 components: components
             });
@@ -41,6 +42,7 @@ var query = require('./query');
                         add={first.props.add}
                         remove={first.props.remove}
                         setQueryExpression={first.props.setQueryExpression}
+                        deleteQueryExpression={query.deleteQueryExpression}
                     />;
             }
             delete(components[index]);
@@ -72,6 +74,7 @@ var query = require('./query');
                         add={this.add}
                         remove={this.remove}
                         setQueryExpression={query.setQueryExpression}
+                        deleteQueryExpression={query.deleteQueryExpression}
                     />]
             }
         },

@@ -60,7 +60,8 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             index={this.props.index}
                             add={this.props.add}
                             remove={this.props.remove}
-                            setQueryExpression={this.props.setQueryExpression}/>
+                            setQueryExpression={this.props.setQueryExpression}
+                            deleteQueryExpression={this.props.deleteQueryExpression}/>
                     </div>
                 </div>
             );

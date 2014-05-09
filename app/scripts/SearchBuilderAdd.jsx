@@ -24,6 +24,8 @@ var query = require('./query');
             this.props.setQueryExpression(this.props.index, {glueTypeNextTerm: query.enumGlueTypes[event.target.getAttribute('data-value')]});
         },
         remove: function (event) {
+            this.props.deleteQueryExpression(this.props.index);
+
             if (! this.state.isAdd) {
                 this.props.remove(this.props.index);
             }
