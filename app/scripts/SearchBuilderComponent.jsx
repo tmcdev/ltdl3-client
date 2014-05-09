@@ -52,8 +52,15 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             index={this.props.index}
                             setQueryExpression={this.props.setQueryExpression}
                         />
-                        <searchBuilderTextBox setTextBoxValue={this.setTextBoxValue} enablePhraseFilter={this.enablePhraseFilter} ref="textBox"/>
-                        <searchBuilderAdd index={this.props.index} add={this.props.add} remove={this.props.remove}/>
+                        <searchBuilderTextBox
+                            setTextBoxValue={this.setTextBoxValue}
+                            enablePhraseFilter={this.enablePhraseFilter}
+                            ref="textBox"/>
+                        <searchBuilderAdd
+                            index={this.props.index}
+                            add={this.props.add}
+                            remove={this.props.remove}
+                            setQueryExpression={this.props.setQueryExpression}/>
                     </div>
                 </div>
             );
