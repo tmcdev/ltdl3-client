@@ -11,7 +11,7 @@ var React = require('react');
     module.exports = React.createClass({
         getInitialState: function () {
             var rv = {};
-            return {filterType: "Everything"};
+            return {filterType: "Everywhere"};
         },
         handleClickType: function (event) {
             this.setState({filterType: event.target.getAttribute('data-type')});
