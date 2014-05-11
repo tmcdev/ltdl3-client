@@ -48,7 +48,6 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                         <searchBuilderFilterPhrase
                             ref="phraseFilter"
                             focusTextBox={this.focusTextBox}
-                            showExcludes={this.props.showExcludes}
                             index={this.props.index}
                             setQueryExpression={this.props.setQueryExpression}
                         />

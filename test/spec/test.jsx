@@ -191,7 +191,6 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                         value=""
                         key="comp0"
                         index={0}
-                        showExcludes={false}
                         add={this.add}
                         remove={this.remove}
                         setQueryExpression={query.setQueryExpression}
@@ -204,18 +203,11 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
 
         describe('SearchBuilderFilterPhrase', function () {
 
-            it('should render 3 choices if showExcludes is not requested', function () {
+            it('should render 3 choices', function () {
                 var restrictor = ReactTestUtils.renderIntoDocument(
-                    <SearchBuilderFilterPhrase showExcludes={false}/>
+                    <SearchBuilderFilterPhrase/>
                 );
                 expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(3);
-            });
-
-            it('should render 5 choices if showExcludes is requested', function () {
-                var restrictor = ReactTestUtils.renderIntoDocument(
-                    <SearchBuilderFilterPhrase showExcludes={true}/>
-                );
-                expect(restrictor.getDOMNode().querySelectorAll('.dropdown-menu li').length).toBe(5);
             });
         });
     });
