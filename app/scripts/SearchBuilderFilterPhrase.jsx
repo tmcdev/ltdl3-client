@@ -13,11 +13,6 @@ var query = require('./query.js');
         {key: 'choice2', glue: 'phrase', label: 'for the exact phrase'}
     ];
 
-    var excludes = [
-        {key: 'choice3', glue: 'not', label: 'excluding the words'},
-        {key: 'choice4', glue: 'notPhrase', label: 'excluding the phrase'}
-    ];
-
     module.exports = React.createClass({
         enable: function () {
             this.refs.button.getDOMNode().removeAttribute('disabled');
@@ -28,26 +23,13 @@ var query = require('./query.js');
         getInitialState: function () {
             return {filterPhrase: choices[0].label};
         },
-        componentDidUpdate: function () {
-            if (!this.props.showExcludes) {
-                var excludesLabels = excludes.map(function (el) { return el.label });
-                if (excludesLabels.indexOf(this.state.filterPhrase) !== -1) {
-                    this.setState({filterPhrase: choices[0].label});
-                    this.props.setQueryExpression(this.props.index, {glueType: query.enumGlueTypes[choices[0].glue]});
-                }
-            }
-        },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
             this.props.setQueryExpression(this.props.index, {glueType: query.enumGlueTypes[event.target.getAttribute('data-glue')]});
             this.props.focusTextBox();
         },
         render: function() {
-            var myChoices = choices;
-            if (this.props.showExcludes) {
-                myChoices = myChoices.concat(excludes);
-            }
-            var renderedChoices = myChoices.map(function (choice) {
+            var renderedChoices = choices.map(function (choice) {
                 return <li key={choice.key}><a data-value={choice.label} data-glue={choice.glue} onClick={this.handleClick} href="#">{choice.label}</a></li>;
             }.bind(this));
             return (
