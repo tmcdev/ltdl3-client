@@ -1,4 +1,4 @@
-(function () {
+var Query = function () {
     'use strict';
     var queryExpressions = [];
 
@@ -36,9 +36,9 @@
         not: 4
     };
 
-    module.exports.enumGlueTypes = enumGlueTypes;
+    this.enumGlueTypes = enumGlueTypes;
 
-    module.exports.setQueryExpression = function (index, settings) {
+    this.setQueryExpression = function (index, settings) {
         var defaults = { term: '*', field: 'er', glueType: enumGlueTypes.or, glueTypeNextTerm: enumGlueTypes.or };
         settings = settings || defaults;
         var me = queryExpressions[index] || defaults;
@@ -51,12 +51,12 @@
         queryExpressions[index] = me;
     };
 
-    module.exports.deleteQueryExpression = function (index) {
+    this.deleteQueryExpression = function (index) {
         delete queryExpressions[index];
     };
 
 
-    module.exports.getQueryString = function () {
+    this.getQueryString = function () {
         var prevJoiner;
         return queryExpressions.reduce(function(prev, cur) {
             var rv = prev;
@@ -81,8 +81,6 @@
             return rv;
         }, '');
     };
+};
 
-    module.exports.resetQuery = function () {
-        queryExpressions = [];
-    };
-}());
+module.exports = Query;

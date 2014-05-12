@@ -2,7 +2,8 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var query = require('./query.js');
+var Query = require('./query.js');
+var query = new Query();
 
 (function () {
     'use strict';
