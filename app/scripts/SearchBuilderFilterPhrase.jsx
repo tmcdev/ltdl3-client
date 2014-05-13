@@ -35,7 +35,7 @@ var query = new Query();
             }.bind(this));
             return (
                 <div className="input-group-btn">
-                    <button ref="button" type="button" className="phraseFilter btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button ref="button" type="button" className="phraseFilter tip btn btn-default dropdown-toggle" data-toggle="dropdown" title="Search for any words, all words, or an exact phrase.">
                         {this.state.filterPhrase} <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu" role="menu">
