@@ -3,7 +3,8 @@
  */
 var React = require('react');
 var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
-var query = require('./query');
+var Query = require('./query');
+var query = new Query();
 
 (function () {
     'use strict';

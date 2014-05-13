@@ -2,7 +2,8 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var query = require('./query.js');
+var Query = require('./query.js');
+var query = new Query();
 
 (function () {
     'use strict';
@@ -34,7 +35,7 @@ var query = require('./query.js');
             }.bind(this));
             return (
                 <div className="input-group-btn">
-                    <button ref="button" type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button ref="button" type="button" className="phraseFilter tip btn btn-default dropdown-toggle" data-toggle="dropdown" title="Search for any words, all words, or an exact phrase.">
                         {this.state.filterPhrase} <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu" role="menu">

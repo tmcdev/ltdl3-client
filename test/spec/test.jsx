@@ -6,7 +6,7 @@
 var React = require('react/addons');
 var ReactTestUtils = React.addons.TestUtils;
 
-var query = require('../../app/scripts/query.js');
+var Query = require('../../app/scripts/query.js');
 
 var GithubRibbon = require('../../app/scripts/GithubRibbon.jsx');
 var SearchBuilder = require('../../app/scripts/SearchBuilder.jsx');
@@ -17,9 +17,11 @@ var SearchBuilderTextBox = require('../../app/scripts/SearchBuilderTextBox.jsx')
 var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
 
 (function () {
-    describe('query', function () {
+    var query;
+
+    describe('Query', function () {
         beforeEach(function() {
-            query.resetQuery();
+            query = new Query();
         });
 
         it('should expose getQueryString', function () {
@@ -30,9 +32,6 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
         });
         it('should expose enumGlueTypes', function () {
             expect(query.enumGlueTypes).toEqual(jasmine.any(Object));
-        });
-        it('should expose resetQuery', function () {
-            expect(query.resetQuery).toEqual(jasmine.any(Function));
         });
         it('should expose deleteQueryExpression', function () {
             expect(query.deleteQueryExpression).toEqual(jasmine.any(Function));
@@ -88,41 +87,41 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
             });
 
             it('should create a query expression with wildcard term if term not provided', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {field: 'ti'});
                 expect(query.getQueryString()).toBe('(ti:*)');
             });
 
             it('should modify glueType only if that is all that is sent', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {field: 'ti'});
                 query.setQueryExpression(1, {glueType: query.enumGlueTypes.phrase});
                 expect(query.getQueryString()).toBe('(ti:"*")')
             });
 
             it('should join multiple expressions with OR by default', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {term: 'foo'});
                 query.setQueryExpression(2, {term: 'bar'});
                 expect(query.getQueryString()).toBe('(er:foo) OR (er:bar)');
             });
 
             it('should join multiple expressions with OR if specified', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.or});
                 query.setQueryExpression(2, {term: 'bar'});
                 expect(query.getQueryString()).toBe('(er:foo) OR (er:bar)');
             });
 
             it('should join multiple expressions with AND if specified', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.and});
                 query.setQueryExpression(2, {term: 'bar'});
                 expect(query.getQueryString()).toBe('(er:foo) AND (er:bar)');
             });
 
             it('should join multiple expressions with NOT if specified', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {term: 'foo', glueTypeNextTerm: query.enumGlueTypes.not});
                 query.setQueryExpression(2, {term: 'bar'});
                 expect(query.getQueryString()).toBe('(er:foo) AND NOT (er:bar)');
@@ -131,7 +130,7 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
 
         describe('deleteQueryExpression()', function () {
             it('should remove a previously added query expression', function () {
-                query.resetQuery();
+                query = new Query();
                 query.setQueryExpression(1, {term: 'foo'});
                 query.setQueryExpression(2, {term: 'bar'});
                 query.deleteQueryExpression(1);
