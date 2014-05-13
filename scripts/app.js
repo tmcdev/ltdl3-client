@@ -167,7 +167,7 @@ var query = require('./query');
             return (
                 React.DOM.div( {className:"input-group-btn"}, 
                     React.DOM.button( {style:revisePulldownStyle, type:"button", className:"btn btn-default dropdown-toggle", 'data-toggle':"dropdown"}, this.state.label, " ", React.DOM.span( {className:"caret"})),
-                    React.DOM.button( {type:"button", onClick:this.remove, className:"btn btn-default {toggleClass}", 'data-toggle':"dropdown"}, React.DOM.span( {className:"glyphicon glyphicon-" + (this.state.isAdd ? "plus" : "minus")})),
+                    React.DOM.button( {type:"button", onClick:this.remove, className:"tip btn btn-default {toggleClass}", 'data-toggle':"dropdown", title:"Click and choose a selector to add a new row"}, React.DOM.span( {className:"glyphicon glyphicon-" + (this.state.isAdd ? "plus" : "minus")})),
                     React.DOM.ul( {className:"dropdown-menu dropdown-menu-right", role:"menu"}, 
                         React.DOM.li(null, React.DOM.a( {'data-label':"AND", 'data-value':"and", onClick:this.add, href:"#"}, "AND")),
                         React.DOM.li(null, React.DOM.a( {'data-label':"OR", 'data-value':"or", onClick:this.add, href:"#"}, "OR")),
@@ -288,7 +288,7 @@ var query = require('./query.js');
             }.bind(this));
             return (
                 React.DOM.div( {className:"input-group-btn"}, 
-                    React.DOM.button( {ref:"button", type:"button", className:"phraseFilter btn btn-default dropdown-toggle", 'data-toggle':"dropdown"}, 
+                    React.DOM.button( {ref:"button", type:"button", className:"phraseFilter tip btn btn-default dropdown-toggle", 'data-toggle':"dropdown", title:"Search for any words, all words, or an exact phrase."}, 
                         this.state.filterPhrase, " ", React.DOM.span( {className:"caret"})
                     ),
                     React.DOM.ul( {className:"dropdown-menu", role:"menu"}, 
@@ -334,7 +334,7 @@ var React = require('react');
         render: function() {
             return (
                 React.DOM.div( {className:"input-group-btn"}, 
-                    React.DOM.button( {type:"button", className:"typeFilter btn btn-default dropdown-toggle", 'data-toggle':"dropdown"}, 
+                    React.DOM.button( {type:"button", className:"typeFilter tip btn btn-default dropdown-toggle", 'data-toggle':"dropdown", title:"Which field would you like to search?"}, 
                         this.state.filterType, " ", React.DOM.span( {className:"caret"})
                     ),
                     React.DOM.ul( {className:"dropdown-menu", role:"menu"}, 
@@ -572,9 +572,6 @@ var Footer = require('./Footer.jsx');
             rv += term.replace(regexTerm, '!' + field + ':$1');
             rv = rv.replace(regexNonTerm, ' AND ');
             break;
-        case enumGlueTypes.notPhrase:
-            rv += '!' + field + ':"' + term + '"';
-            break;
         }
 
         return rv;
@@ -584,8 +581,7 @@ var Footer = require('./Footer.jsx');
         or: 1,
         and: 2,
         phrase: 3,
-        not: 4,
-        notPhrase: 5
+        not: 4
     };
 
     module.exports.enumGlueTypes = enumGlueTypes;
