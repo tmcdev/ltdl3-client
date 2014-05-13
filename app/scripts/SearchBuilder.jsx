@@ -18,8 +18,7 @@ var query = new Query();
                 index={index+1}
                 add={this.add}
                 remove={this.remove}
-                setQueryExpression={query.setQueryExpression}
-                deleteQueryExpression={query.deleteQueryExpression}/>);
+                queryBuilder={query}/>);
             this.setState({
                 components: components
             });
@@ -53,8 +52,7 @@ var query = new Query();
                         index={0}
                         add={this.add}
                         remove={this.remove}
-                        setQueryExpression={query.setQueryExpression}
-                        deleteQueryExpression={query.deleteQueryExpression}
+                        queryBuilder={query}
                     />]
             }
         },

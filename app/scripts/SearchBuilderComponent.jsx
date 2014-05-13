@@ -18,12 +18,12 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
             var code = this.refs.typeFilter.getCode();
             if (term) {
                 this.refs.textBox.setState({value: term.value});
-                this.props.setQueryExpression(this.props.index, {
+                this.props.queryBuilder.setQueryExpression(this.props.index, {
                     term: term.value,
                     field: code
                 });
             } else {
-                this.props.setQueryExpression(this.props.index, {field: code});
+                this.props.queryBuilder.setQueryExpression(this.props.index, {field: code});
             }
         },
         disablePhraseFilter: function () {
@@ -49,7 +49,7 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             ref="phraseFilter"
                             focusTextBox={this.focusTextBox}
                             index={this.props.index}
-                            setQueryExpression={this.props.setQueryExpression}
+                            queryBuilder={this.props.queryBuilder}
                         />
                         <searchBuilderTextBox
                             setTextBoxValue={this.setTextBoxValue}
@@ -59,8 +59,7 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             index={this.props.index}
                             add={this.props.add}
                             remove={this.props.remove}
-                            setQueryExpression={this.props.setQueryExpression}
-                            deleteQueryExpression={this.props.deleteQueryExpression}/>
+                            queryBuilder={this.props.queryBuilder}/>
                     </div>
                 </div>
             );

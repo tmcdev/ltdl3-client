@@ -2,8 +2,6 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var Query = require('./query.js');
-var query = new Query();
 
 (function () {
     'use strict';
@@ -26,7 +24,7 @@ var query = new Query();
         },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
-            this.props.setQueryExpression(this.props.index, {glueType: query.enumGlueTypes[event.target.getAttribute('data-glue')]});
+            this.props.queryBuilder.setQueryExpression(this.props.index, {glueType: this.props.queryBuilder.enumGlueTypes[event.target.getAttribute('data-glue')]});
             this.props.focusTextBox();
         },
         render: function() {
