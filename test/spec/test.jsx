@@ -187,7 +187,7 @@ var SearchBuilderAdd = require('../../app/scripts/SearchBuilderAdd.jsx');
                         index={0}
                         add={this.add}
                         remove={this.remove}
-                        setQueryExpression={query.setQueryExpression}
+                        queryBuilder={query}
                     />
 
                 );
