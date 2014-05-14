@@ -2,8 +2,6 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var Query = require('./query');
-var query = new Query();
 
 (function () {
     'use strict';
@@ -22,10 +20,10 @@ var query = new Query();
                 this.setState({isAdd: false});
                 this.props.add(this.props.index);
             }
-            this.props.setQueryExpression(this.props.index, {glueTypeNextTerm: query.enumGlueTypes[event.target.getAttribute('data-value')]});
+            this.props.queryBuilder.setQueryExpression(this.props.index, {glueTypeNextTerm: this.props.queryBuilder.enumGlueTypes[event.target.getAttribute('data-value')]});
         },
         remove: function (event) {
-            this.props.deleteQueryExpression(this.props.index);
+            this.props.queryBuilder.deleteQueryExpression(this.props.index);
 
             if (! this.state.isAdd) {
                 this.props.remove(this.props.index);
