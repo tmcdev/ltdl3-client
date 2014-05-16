@@ -53,7 +53,8 @@ var React = require('react');
  */
 var React = require('react');
 var SearchBuilderComponent = require('./SearchBuilderComponent.jsx');
-var query = require('./query');
+var Query = require('./query');
+var query = new Query();
 
 (function () {
     'use strict';
@@ -67,8 +68,7 @@ var query = require('./query');
                 index:index+1,
                 add:this.add,
                 remove:this.remove,
-                setQueryExpression:query.setQueryExpression,
-                deleteQueryExpression:query.deleteQueryExpression}));
+                queryBuilder:query}));
             this.setState({
                 components: components
             });
@@ -102,8 +102,7 @@ var query = require('./query');
                         index:0,
                         add:this.add,
                         remove:this.remove,
-                        setQueryExpression:query.setQueryExpression,
-                        deleteQueryExpression:query.deleteQueryExpression}
+                        queryBuilder:query}
                     )]
             }
         },
@@ -129,7 +128,6 @@ var query = require('./query');
  * @jsx React.DOM
  */
 var React = require('react');
-var query = require('./query');
 
 (function () {
     'use strict';
@@ -138,20 +136,23 @@ var query = require('./query');
         getInitialState: function () {
             return {
                 isAdd: true,
-                label: ""
+                label: "AND"
             }
         },
         add: function (event) {
-            this.setState({label: event.target.getAttribute('data-label')});
+            this.setState({label: event.target.getAttribute("data-label")});
 
             if (this.state.isAdd) {
                 this.setState({isAdd: false});
                 this.props.add(this.props.index);
             }
-            this.props.setQueryExpression(this.props.index, {glueTypeNextTerm: query.enumGlueTypes[event.target.getAttribute('data-value')]});
+            this.props.queryBuilder.setQueryExpression(this.props.index, {glueTypeNextTerm: this.props.queryBuilder.enumGlueTypes[event.target.getAttribute("data-value")]});
+        },
+        setBool: function (event) {
+            this.setState({label: event.target.getAttribute("data-label")});
         },
         remove: function (event) {
-            this.props.deleteQueryExpression(this.props.index);
+            this.props.queryBuilder.deleteQueryExpression(this.props.index);
 
             if (! this.state.isAdd) {
                 this.props.remove(this.props.index);
@@ -160,26 +161,30 @@ var query = require('./query');
         render: function () {
             var revisePulldownStyle = {display: "inherit"};
             var toggleClass = "";
+            var disabled = "";
             if (this.state.isAdd) {
-                revisePulldownStyle = {display: "none"}
                 toggleClass = "dropdown-toggle"
+                disabled = "disabled";
             }
             return (
-                React.DOM.div( {className:"input-group-btn"}, 
-                    React.DOM.button( {style:revisePulldownStyle, type:"button", className:"btn btn-default dropdown-toggle", 'data-toggle':"dropdown"}, this.state.label, " ", React.DOM.span( {className:"caret"})),
-                    React.DOM.button( {type:"button", onClick:this.remove, className:"tip btn btn-default {toggleClass}", 'data-toggle':"dropdown", title:"Click and choose a selector to add a new row"}, React.DOM.span( {className:"glyphicon glyphicon-" + (this.state.isAdd ? "plus" : "minus")})),
+                React.DOM.div( {className:"input-group-btn row-bool-group"}, 
+                    React.DOM.button( {style:revisePulldownStyle, type:"button", className:"btn btn-default dropdown-toggle bool-button", disabled:disabled, 'data-toggle':"dropdown"}, 
+                        this.state.label, " ", React.DOM.span( {className:"caret"})
+                    ),
                     React.DOM.ul( {className:"dropdown-menu dropdown-menu-right", role:"menu"}, 
-                        React.DOM.li(null, React.DOM.a( {'data-label':"AND", 'data-value':"and", onClick:this.add, href:"#"}, "AND")),
-                        React.DOM.li(null, React.DOM.a( {'data-label':"OR", 'data-value':"or", onClick:this.add, href:"#"}, "OR")),
-                        React.DOM.li(null, React.DOM.a( {'data-label':"NOT", 'data-value':"not", onClick:this.add, href:"#"}, "NOT"))
+                        React.DOM.li(null, React.DOM.a( {'data-label':"AND", 'data-value':"and", onClick:this.setBool, href:"#"}, "AND")),
+                        React.DOM.li(null, React.DOM.a( {'data-label':"OR", 'data-value':"or", onClick:this.setBool, href:"#"}, "OR")),
+                        React.DOM.li(null, React.DOM.a( {'data-label':"NOT", 'data-value':"not", onClick:this.setBool, href:"#"}, "NOT"))
+                    ),
+                    React.DOM.button( {type:"button", onClick:this.remove, className:"tip btn btn-default {toggleClass} add-del-button", title:"Click and choose a selector to add a new row"}, 
+                        React.DOM.span( {className:"glyphicon glyphicon-" + (this.state.isAdd ? "plus" : "minus") + " white-icon", 'data-label':"AND", 'data-value':"and", onClick:this.add})
                     )
                 )
             )
         }
     });
 }());
-
-},{"./query":11,"react":147}],5:[function(require,module,exports){
+},{"react":147}],5:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -200,12 +205,12 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
             var code = this.refs.typeFilter.getCode();
             if (term) {
                 this.refs.textBox.setState({value: term.value});
-                this.props.setQueryExpression(this.props.index, {
+                this.props.queryBuilder.setQueryExpression(this.props.index, {
                     term: term.value,
                     field: code
                 });
             } else {
-                this.props.setQueryExpression(this.props.index, {field: code});
+                this.props.queryBuilder.setQueryExpression(this.props.index, {field: code});
             }
         },
         disablePhraseFilter: function () {
@@ -231,7 +236,7 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             {ref:"phraseFilter",
                             focusTextBox:this.focusTextBox,
                             index:this.props.index,
-                            setQueryExpression:this.props.setQueryExpression}
+                            queryBuilder:this.props.queryBuilder}
                         ),
                         searchBuilderTextBox(
                             {setTextBoxValue:this.setTextBoxValue,
@@ -241,8 +246,7 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
                             {index:this.props.index,
                             add:this.props.add,
                             remove:this.props.remove,
-                            setQueryExpression:this.props.setQueryExpression,
-                            deleteQueryExpression:this.props.deleteQueryExpression})
+                            queryBuilder:this.props.queryBuilder})
                     )
                 )
             );
@@ -256,7 +260,6 @@ var searchBuilderAdd = require('./SearchBuilderAdd.jsx');
  * @jsx React.DOM
  */
 var React = require('react');
-var query = require('./query.js');
 
 (function () {
     'use strict';
@@ -279,7 +282,7 @@ var query = require('./query.js');
         },
         handleClick: function (event) {
             this.setState({filterPhrase: event.target.getAttribute('data-value')});
-            this.props.setQueryExpression(this.props.index, {glueType: query.enumGlueTypes[event.target.getAttribute('data-glue')]});
+            this.props.queryBuilder.setQueryExpression(this.props.index, {glueType: this.props.queryBuilder.enumGlueTypes[event.target.getAttribute('data-glue')]});
             this.props.focusTextBox();
         },
         render: function() {
@@ -300,7 +303,7 @@ var query = require('./query.js');
     });
 }());
 
-},{"./query.js":11,"react":147}],7:[function(require,module,exports){
+},{"react":147}],7:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -546,7 +549,7 @@ var Footer = require('./Footer.jsx');
 }());
 
 },{"./Footer.jsx":1,"./GithubRibbon.jsx":2,"./SearchBuilder.jsx":3,"./SearchResults.jsx":9,"react":147}],11:[function(require,module,exports){
-(function () {
+var Query = function () {
     'use strict';
     var queryExpressions = [];
 
@@ -584,9 +587,9 @@ var Footer = require('./Footer.jsx');
         not: 4
     };
 
-    module.exports.enumGlueTypes = enumGlueTypes;
+    this.enumGlueTypes = enumGlueTypes;
 
-    module.exports.setQueryExpression = function (index, settings) {
+    this.setQueryExpression = function (index, settings) {
         var defaults = { term: '*', field: 'er', glueType: enumGlueTypes.or, glueTypeNextTerm: enumGlueTypes.or };
         settings = settings || defaults;
         var me = queryExpressions[index] || defaults;
@@ -599,12 +602,12 @@ var Footer = require('./Footer.jsx');
         queryExpressions[index] = me;
     };
 
-    module.exports.deleteQueryExpression = function (index) {
+    this.deleteQueryExpression = function (index) {
         delete queryExpressions[index];
     };
 
 
-    module.exports.getQueryString = function () {
+    this.getQueryString = function () {
         var prevJoiner;
         return queryExpressions.reduce(function(prev, cur) {
             var rv = prev;
@@ -629,11 +632,9 @@ var Footer = require('./Footer.jsx');
             return rv;
         }, '');
     };
+};
 
-    module.exports.resetQuery = function () {
-        queryExpressions = [];
-    };
-}());
+module.exports = Query;
 
 },{}],12:[function(require,module,exports){
 // shim for using process in browser
