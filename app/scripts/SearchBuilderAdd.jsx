@@ -35,7 +35,6 @@ var React = require('react');
         render: function () {
             var revisePulldownStyle = {display: "inherit"};
             var toggleClass = "";
-            console.log(this.state.label);
             if (this.state.isAdd) {
                 revisePulldownStyle = {display: "none"}
                 toggleClass = "dropdown-toggle"
