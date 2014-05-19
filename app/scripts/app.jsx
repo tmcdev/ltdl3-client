@@ -21,7 +21,7 @@ var Footer = require('./Footer.jsx');
                 <div className="container">
                     <GithubRibbon/>
                     <h1>Search the Legacy Tobacco Documents</h1>
-                    <SearchBuilder showResults={this.showResults} url="http://solr1.mooo.com:8983/solr/ltdl3test/select"/>
+                    <SearchBuilder showResults={this.showResults} url="http://apis.ucsf.edu/solr/ltdl3test/select"/>
                     <SearchResults ref="results"/>
                     <Footer/>
                 </div>
