@@ -150,6 +150,7 @@ var React = require('react');
         },
         setBool: function (event) {
             this.setState({label: event.target.getAttribute("data-label")});
+            this.add(event);
         },
         remove: function (event) {
             this.props.queryBuilder.deleteQueryExpression(this.props.index);
@@ -161,23 +162,31 @@ var React = require('react');
         render: function () {
             var revisePulldownStyle = {display: "inherit"};
             var toggleClass = "";
-            var disabled = "";
             if (this.state.isAdd) {
-                toggleClass = "dropdown-toggle"
-                disabled = "disabled";
+                toggleClass = "dropdown-toggle";
             }
             return (
-                React.DOM.div( {className:"input-group-btn row-bool-group"}, 
-                    React.DOM.button( {style:revisePulldownStyle, type:"button", className:"btn btn-default dropdown-toggle bool-button", disabled:disabled, 'data-toggle':"dropdown"}, 
-                        this.state.label, " ", React.DOM.span( {className:"caret"})
+                React.DOM.div( {className:"input-group row-bool-group"}, 
+                    React.DOM.div( {className:"input-group-btn left-bool-group"}, 
+                        React.DOM.button( {style:revisePulldownStyle, type:"button", className:"btn btn-default dropdown-toggle bool-button", id:"bool-dropdown-left", 'data-toggle':"dropdown"}, 
+                            this.state.label, " ", React.DOM.span( {className:"caret"})
+                        ),
+                        React.DOM.ul( {className:"dropdown-menu dropdown-menu-right bool-menu-left", role:"menu", 'aria-labelledby':"bool-dropdown-left"}, 
+                            React.DOM.li(null, React.DOM.a( {'data-label':"AND", 'data-value':"and", onClick:this.setBool, href:"#"}, "AND")),
+                            React.DOM.li(null, React.DOM.a( {'data-label':"OR", 'data-value':"or", onClick:this.setBool, href:"#"}, "OR")),
+                            React.DOM.li(null, React.DOM.a( {'data-label':"NOT", 'data-value':"not", onClick:this.setBool, href:"#"}, "NOT"))
+                        )
                     ),
-                    React.DOM.ul( {className:"dropdown-menu dropdown-menu-right", role:"menu"}, 
-                        React.DOM.li(null, React.DOM.a( {'data-label':"AND", 'data-value':"and", onClick:this.setBool, href:"#"}, "AND")),
-                        React.DOM.li(null, React.DOM.a( {'data-label':"OR", 'data-value':"or", onClick:this.setBool, href:"#"}, "OR")),
-                        React.DOM.li(null, React.DOM.a( {'data-label':"NOT", 'data-value':"not", onClick:this.setBool, href:"#"}, "NOT"))
-                    ),
-                    React.DOM.button( {type:"button", onClick:this.remove, className:"tip btn btn-default {toggleClass} add-del-button", title:"Click and choose a selector to add a new row"}, 
-                        React.DOM.span( {className:"glyphicon glyphicon-" + (this.state.isAdd ? "plus" : "minus") + " white-icon", 'data-label':"AND", 'data-value':"and", onClick:this.add})
+
+                    React.DOM.div( {className:"input-group-btn right-bool-group"}, 
+                        React.DOM.button( {type:"button", onClick:this.remove, className:"tip btn btn-default {toggleClass} add-del-button", id:"bool-dropdown-right", 'data-toggle':"dropdown", title:"Click and choose a selector to add a new row"}, 
+                            React.DOM.span( {className:"glyphicon glyphicon-" + (this.state.isAdd ? "plus" : "minus") + " white-icon", 'data-label':"AND", 'data-value':"and"})
+                        ),
+                        React.DOM.ul( {className:"dropdown-menu dropdown-menu-right bool-menu-right", role:"menu", 'aria-labelledby':"bool-dropdown-right"}, 
+                            React.DOM.li(null, React.DOM.a( {'data-label':"AND", 'data-value':"and", onClick:this.setBool, href:"#"}, "AND")),
+                            React.DOM.li(null, React.DOM.a( {'data-label':"OR", 'data-value':"or", onClick:this.setBool, href:"#"}, "OR")),
+                            React.DOM.li(null, React.DOM.a( {'data-label':"NOT", 'data-value':"not", onClick:this.setBool, href:"#"}, "NOT"))
+                        )
                     )
                 )
             )
