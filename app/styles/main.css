@@ -71,3 +71,73 @@
 h1 {
     font-size: 30px;
 }
+.white-icon{
+    color:#ffffff;
+}
+.white-icon:hover{
+    color:#31b5d5;
+}
+.row-bool-group{
+    display: table-cell;
+    position: relative;
+    width:109px;
+    height:32px;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    border:0px !important;
+    background:#666666;
+}
+.left-bool-group{
+    top:-1px !important;
+}
+.right-bool-group{
+    top:-1px !important;
+}
+.bool-button {
+    width:70px;
+    border:none;
+    border-left:1px solid #666666;
+    background-color:#c0c0c0 !important;
+}
+.bool-button:hover{
+    border:none;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
+
+}
+.bool-button:disabled{
+    border:none;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
+}
+.bool-button:focus{
+    border:none;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
+}
+.add-del-button{
+    border:none;
+    border-left:1px solid #666666;
+    background-color:#c0c0c0 !important;
+}
+.add-del-button:hover{
+    border:none;
+    border-left:1px solid #666666;
+}
+.add-del-button:focus{
+    border:none;
+    border-left:1px solid #666666;
+}
+.bool-menu-left{
+    top:-3px;
+    right:0px;
+    min-width:70px !important;
+    border-radius:0px;
+}
+.bool-menu-right{
+    top:-3px;
+    right:0px;
+    min-width:110px;
+    border-radius:0px;
+}
